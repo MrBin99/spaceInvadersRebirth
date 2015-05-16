@@ -6,54 +6,59 @@ package iut.info1.spaceInvadersRebirth.gui;
 import javax.swing.JFrame;
 
 /**
- * Représente la fenêtre qui contiendra le jeu.
+ * Représente la fenêtre contenant le panneau de jeu.
  * @author
- * @version dev 0.1
+ * @version dev 0.3
  */
 public class GameWindow extends JFrame {
 
     /** Numéro de sérialisation. */
     private static final long serialVersionUID = 2579360686780115378L;
+
+    /** Le titre du jeu à afficher en tant que titre de la fenêtre. */
+    public static final String TITLE = "Space Invaders - Rebirth";
     
     /** La largeur de la fenêtre. */
-    public static final int FRAME_WIDTH = 800;
+    public static final int WIDTH = 1024;
     
     /** La hauteur de la fenêtre. */
-    public static final int FRAME_HEIGHT = 800;
+    public static final int HEIGHT = 768;
     
-    /** Le titre du jeu. */
-    public static final String GAME_TITLE = "Space Invaders : Rebirth";
+    /** 
+     * Le panneau de jeu contenant tous les éléments du jeu 
+     * et prenant tout l'espace sur le contenu de la fenêtre. 
+     */
+    private GamePanel gamePanel;
     
-    /** Le panneau où sera dessiné le jeu. */
-    private GamePanel panel;
-
-    /** Constructeur de la fenêtre. */
+    /** Construit une nouvelle fenêtre de jeu. */
     public GameWindow() {
-        // Taille de la fenêtre
-        this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        
-        // Action à effectuer lors de la fermeture de la fenêtre
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        // Fenêtre non redimensionnable
-        this.setResizable(false);
-        
         // Titre
-        this.setTitle(GAME_TITLE);
+        setTitle(TITLE);
         
-        // Place la fenêtre au centre de l'écran au démarrage
-        this.setLocationRelativeTo(null);
+        // Evènnement à la fermeture
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        // Ajout du panneau
-        this.panel = new GamePanel();
-        this.getContentPane().add(panel);
+        // Non redimensionnable
+        setResizable(false);
+
+        // Taille
+        setSize(WIDTH, HEIGHT);
         
-        // Met la fenêtre visible
-        this.setVisible(true);
+        // Apparaît au centre de l'écran
+        setLocationRelativeTo(null);
+        
+        // Ajout du panneau de jeu et lancement du jeu
+        getContentPane().add(getGamePanel());
+        gamePanel.run();
     }
     
-    /** Lance le jeu. */
-    public void run() {
-        this.panel.run();
+    /**
+     * @return le panneau de jeu de la fenêtre.
+     */
+    public GamePanel getGamePanel() {
+        if (gamePanel == null) {
+            gamePanel = new GamePanel();
+        }
+        return gamePanel;
     }
 }

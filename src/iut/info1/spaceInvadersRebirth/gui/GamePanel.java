@@ -4,100 +4,101 @@
 package iut.info1.spaceInvadersRebirth.gui;
 
 import iut.info1.spaceInvadersRebirth.gameStates.GameStateManager;
+import iut.info1.spaceInvadersRebirth.res.Resources;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JPanel;
 
 /**
- * Le panneau contenu dans la fenêtre du jeu où sera dessiné le jeu.<br>
- * Le panneau comporte un écouteur clavier qui permettra 
- * à l'utilisateur de faire les actions du jeu.
+ * Représente le panneau de jeu où sera dessiné tous les éléments du jeu.
  * @author
- * @version dev 0.1
+ * @version dev 0.2
  */
-public class GamePanel extends Canvas implements KeyListener {
+public class GamePanel extends JPanel implements KeyListener {
 
     /** Numéro de sérialisation. */
-    private static final long serialVersionUID = 649482702172806765L;
+    private static final long serialVersionUID = -7952436435937556877L;
     
-    /** Nombre de fois par secondes que le jeu se met à jour. */
-    public static final int FPS = 100;
+    /** 
+     * "Frames Per Seconds", le nombre de fois 
+     * que le jeu fait une mise à jour par secondes. 
+     */
+    public static final int FPS = 60;
     
-    /** TODO Commenter */
-    public static final int TARGET_TIME = 20000 / FPS;
+    /** La largeur du panneau dans la fenêtre. */
+    public static final int WIDTH = 1018;
     
-    /** Si le jeu est en cours d'exécution. */
-    private boolean gameRunning;
+    /** La hauteur du panneau dans la fenêtre. */
+    public static final int HEIGHT = 763;
     
-    /** Permet de gérer les états du jeu à afficher sur le panneau. */
-    private GameStateManager gameStateManager;
+    /** 
+     * Permet de mettre à jour régulièrement le jeu 
+     * à chaque "tick" du Timer.<br>
+     * C'est à dire toutes les (1000 / FPS) ms = 16 ms.
+     */
+    private Timer ticker;
     
     /**
-     * Constructeur du panneau de jeu.
+     * Permet de gérer l'enchainement des différents écrans du jeu 
+     * (ex : menu principal, le jeu en lui-même, le menu pause ...)
      */
+    private GameStateManager gameStateManager;
+
+    /** Construit le panneau de jeu. */
     public GamePanel() {
-        // Pour que le panneau garde le focus
+        // Permet d'avoir toujours le focus
         this.setFocusable(true);
         this.requestFocus();
         
-        // Ajout de l'écouteur clavier
+        // Ajoute l'écouteur clavier au panneau
         this.addKeyListener(this);
         
-        // Met l'arrière-plan en noir
+        // Met le fond noir
         this.setBackground(Color.BLACK);
         
-        // Affiche le menu comme 1er état
-        this.gameStateManager = GameStateManager.getInstance();
+        // Permet un repaint() du panneau plus vite en utilisant un "buffer"
+        this.setDoubleBuffered(true);
         
-        // Le jeu n'a pas démarré
-        this.gameRunning = false;
+        // Création du GameStateManager
+        gameStateManager = GameStateManager.getInstance();
+        
+        // Charge les ressources du jeu
+        Resources.loadResources();
     }
     
-    /** Démarre la Game Loop du jeu. */
+    /** Créé le Timer permettant de lancer le jeu. */
     public void run() {
-        // Le jeu démarre
-        this.gameRunning = true;
-        
-        long timeStart;
-        long timeElapsed;
-        long timeWait;
-        
-        // Game Loop
-        while (this.gameRunning) {
-            timeStart = System.nanoTime();
+        // Créé l'horloge qui "tick" toute les 16ms environ
+        ticker = new Timer();
+        ticker.schedule(new TimerTask() {
             
-            // Mise à jour du jeu et de l'affichage
-            update();
-            repaint();
-            
-            timeElapsed = System.nanoTime() - timeStart;
-            timeWait = TARGET_TIME - timeElapsed / 1000000;
-            timeWait = timeWait < 0 ? 5 : timeWait;
-            
-            try {
-                Thread.sleep(timeWait);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            // A chaque tick du jeu
+            @Override
+            public void run() {
+                gameStateManager.update();
+                repaint();
             }
-        }
-    }
-    
-    /** Met à jour l'état courant du jeu. */
-    private void update() {
-        this.gameStateManager.update();
+            
+        }, 0, 1000 / FPS);
     }
     
     /* 
      * (non-Javadoc)
-     * @see java.awt.Canvas#paint(java.awt.Graphics)
+     * @see javax.swing.JComponent#paint(java.awt.Graphics)
      */
     @Override
     public void paint(Graphics graphics) {
-        this.gameStateManager.draw((Graphics2D) graphics);
+        
+        // Repaint du jeu
+        super.paint(graphics);
+        gameStateManager.draw((Graphics2D) graphics);
     }
 
     /* 
@@ -105,7 +106,7 @@ public class GamePanel extends Canvas implements KeyListener {
      * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
      */
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent event) {
         // UNUSED
     }
 
@@ -114,8 +115,8 @@ public class GamePanel extends Canvas implements KeyListener {
      * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
      */
     @Override
-    public void keyPressed(KeyEvent e) {
-        this.gameStateManager.keyPressed(e.getKeyCode());
+    public void keyPressed(KeyEvent event) {
+        gameStateManager.keyPressed(event.getKeyCode());
     }
 
     /* 
@@ -123,7 +124,7 @@ public class GamePanel extends Canvas implements KeyListener {
      * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
      */
     @Override
-    public void keyReleased(KeyEvent e) {
-        this.gameStateManager.keyReleased(e.getKeyCode());
+    public void keyReleased(KeyEvent event) {
+        gameStateManager.keyReleased(event.getKeyCode());
     }
 }

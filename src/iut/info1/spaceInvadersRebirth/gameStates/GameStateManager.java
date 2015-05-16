@@ -10,21 +10,18 @@ import java.awt.Graphics2D;
  * Cette classe permet de déterminer à quel moment 
  * afficher les différents états.
  * @author
- * @version dev 0.1
+ * @version dev 0.2
  */
 public class GameStateManager {
     
-    /** Seule instance du GameStateManager (pattern Singleton). */
+    /** 
+     * Seule instance du GameStateManager 
+     * dans l'application (Pattern Singleton). 
+     */
     private static GameStateManager instance = new GameStateManager();
     
-    /** Les états du jeu gérés par le manager. */
-    private GameState[] gameStates;
-    
-    /** L'identifiant du GameState courant chargé. */
-    private int currentState;
-    
     /** Le nombre de GameStates gérés par le manager. */
-    public static final int NBR_GAME_STATES = 3;
+    public static final int NBR_GAME_STATES = 4;
     
     /** 
      * Identifiant dans le GameStateManager du menu principal 
@@ -39,21 +36,36 @@ public class GameStateManager {
     public static final int ID_LEVEL_STATE = 1;
     
     /** 
+     * Identifiant dans le GameStateManager de l'écran de pause du jeu.
+     * (indice dans le tableau des GameStates). 
+     */
+    public static final int ID_GAME_PAUSED_STATE = 2;
+    
+    /** 
      * Identifiant dans le GameStateManager de l'écran "Game Over"
      * (indice dans le tableau des GameStates). 
      */
-    public static final int ID_GAME_OVER_STATE = 2;
+    public static final int ID_GAME_OVER_STATE = 3;
+    
+    /** Les états possibles du jeu gérés par le manager. */
+    private GameState[] gameStates;
+    
+    /** 
+     * L'identifiant du GameState courant chargé 
+     * (indice dans le tableau des GameStates). 
+     */
+    private int currentState;
     
     /**
-     * Constructeur du GameStateManager.<br>
+     * Construit un GameStateManager.<br>
      * Initialise la liste des GameStates et charge le menu principal.
      */
     private GameStateManager() {
-        // Initialisation de la liste des GameStates
-        this.gameStates = new GameState[NBR_GAME_STATES];
+        // Initialisation du tableau des GameStates
+        gameStates = new GameState[NBR_GAME_STATES];
         
-        // On charge le menu
-        this.currentState = 0;
+        // Charge le menu principal
+        currentState = 0;
         loadState();
     }
     
@@ -64,20 +76,23 @@ public class GameStateManager {
      */
     private void loadState() {
         switch (this.currentState) {
-            case 0:
-                // Chargement du menu
+            case ID_MENU_STATE:
+                // Lance le menu du jeu
+                this.gameStates[this.currentState] = new MenuState(this);
                 break;
-            case 1:
-                // Chargement du level
+            case ID_LEVEL_STATE:
+                //this.gameStates[this.currentState] = new LevelState(this);
                 break;
-            case 2:
+            case ID_GAME_PAUSED_STATE:
+                // Chargment du menu pause
+                break;
+            case ID_GAME_OVER_STATE:
+                // Chargment du menu game over
                 break;
         }
     }
     
-    /**
-     * Décharge le GameState courant.
-     */
+    /** Décharge le GameState courant. */
     private void unloadState() {
         this.gameStates[this.currentState] = null;
     }
@@ -86,12 +101,14 @@ public class GameStateManager {
      * Change le GameState courant par celui dont l'identifiant 
      * est passé en argument et le charge.
      * @param id l'identifiant du GameState à charger.
+     * @throws IllegalArgumentException si id ne correspond 
+     *                                  à aucun GameState sauvegardé.
      */
     public void switchState(int id) {
         // Precondition
         if (id < 0 || id >= this.gameStates.length) {
             throw new IllegalArgumentException("Identifiant de "
-                                               + "GameState Invalide");
+                                               + "GameState Invalide.");
         }
         
         // On décharge le GameState courant
@@ -102,43 +119,39 @@ public class GameStateManager {
         loadState();
     }
     
-    /**
-     * Met à jour le GameState courant.
-     */
+    /** Met à jour le GameState courant. */
     public void update() {
-        this.gameStates[this.currentState].update();
+        gameStates[currentState].update();
     }
     
-    /**
-     * Dessine les mises à jour calculées sur le contexte graphique 
-     * passé en argument.
-     * @param graphics le contexte graphique sur lequel déssiner.
+    /** 
+     * Met à jour l'affichage du jeu pour le GameState courant. 
+     * @param graphics le contexte graphique où dessiner les mises à jour. 
      */
     public void draw(Graphics2D graphics) {
-        this.gameStates[this.currentState].draw(graphics);
+        gameStates[currentState].draw(graphics);
     }
     
     /**
      * Action à effectuer sur le GameState courant quand 
      * une touche du clavier est appuyée.
-     * @param key le code de la touche appuyée.
+     * @param keyCode le code de la touche appuyée.
      */
-    public void keyPressed(int key) {
-        this.gameStates[this.currentState].keyPressed(key);
+    public void keyPressed(int keyCode) {
+        gameStates[currentState].keyPressed(keyCode);
     }
     
     /**
      * Action à effectuer sur le GameState courant quand 
      * une touche du clavier est relachée.
-     * @param key le code de la touche relachée.
+     * @param keyCode le code de la touche relachée.
      */
-    public void keyReleased(int key) {
-        this.gameStates[this.currentState].keyReleased(key);
+    public void keyReleased(int keyCode) {
+        gameStates[currentState].keyReleased(keyCode);
     }
     
     /**
-     * Getter sur instance
-     * @return instance
+     * @return l'instance du GameStateManager.
      */
     public static GameStateManager getInstance() {
         return instance;

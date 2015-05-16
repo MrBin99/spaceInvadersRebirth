@@ -1,14 +1,14 @@
 /*
  * Launcher.java
  */
-package iut.info1.spaceInvadersRebirth.main;
+package iut.info1.spaceInvadersRebirth.launcher;
 
 import iut.info1.spaceInvadersRebirth.gui.GameWindow;
 
 /**
- * Classe contenant la méthode "Main" permettant de lancer l'application.
- * @author MrBin99
- * @version dev
+ * Classe contenant la méthode "main" pour lancer le jeu.
+ * @author
+ * @version dev 0.1
  */
 public class Launcher {
 
@@ -17,6 +17,6 @@ public class Launcher {
      * @param args non utilisés.
      */
     public static void main(String[] args) {
-        new GameWindow().run();
+        new GameWindow().setVisible(true);
     }
 }

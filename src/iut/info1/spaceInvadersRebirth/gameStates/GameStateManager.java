@@ -81,7 +81,7 @@ public class GameStateManager {
                 this.gameStates[this.currentState] = new MenuState(this);
                 break;
             case ID_LEVEL_STATE:
-                //this.gameStates[this.currentState] = new LevelState(this);
+                this.gameStates[this.currentState] = new LevelState(this);
                 break;
             case ID_GAME_PAUSED_STATE:
                 // Chargment du menu pause
@@ -121,7 +121,9 @@ public class GameStateManager {
     
     /** Met à jour le GameState courant. */
     public void update() {
-        gameStates[currentState].update();
+        if (gameStates[currentState] != null) {
+            gameStates[currentState].update();
+        }
     }
     
     /** 

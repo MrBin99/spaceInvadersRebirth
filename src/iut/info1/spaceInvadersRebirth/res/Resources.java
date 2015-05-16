@@ -29,6 +29,9 @@ public class Resources {
     /** Le chemin dans les ressources vers la police utilisée dans le jeu. */
     public static final String FONT_PATH = "/HUD/minecraftia.ttf";
     
+    /** Le chemin dans les ressources vers le sprite du joueur. */
+    public static final String PLAYER_SPRITE_PATH = "/player/player.png";
+    
     /** La couleur du texte affiché dans le jeu. */
     public static final Color COLOR_TEXT = Color.WHITE;
     
@@ -43,6 +46,9 @@ public class Resources {
     
     /** La police de caractère utilisée dans le jeu. */
     public static Font font;
+    
+    /** Le sprite du joueur. */
+    public static BufferedImage playerSprite;
     
     /** 
      * Charge les ressources du jeu au chemin spécifiés 
@@ -59,6 +65,9 @@ public class Resources {
             
             // La police
             font = loadFont(FONT_PATH);
+            
+            // Le joueur
+            playerSprite = loadImage(PLAYER_SPRITE_PATH);
 
         } catch (IOException e) {
             System.err.println("Impossible de charger la ressource : " 

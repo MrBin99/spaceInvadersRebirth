@@ -36,9 +36,9 @@ public abstract class GameObject {
     
     /**
      * 
-     * @param levelState
-     * @param sprite
-     * @throws NullPointerException
+     * @param levelState Le levelState où on doit dessiner le game object.
+     * @param sprite Sprite du game object à afficher.
+     * @throws NullPointerException  si levelState == null || sprite == null
      */
     protected GameObject(LevelState levelState, BufferedImage sprite)
     throws NullPointerException {

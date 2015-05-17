@@ -35,6 +35,9 @@ public class Resources {
     /** Le chemin dans les ressources vers le sprite de l'invader. */
     public static final String LITTLE_INVADER_SPRITE_PATH 
                                 = "/ennemies/littleInvader.png";
+    /** Le chemin dans les ressources vers le sprite du projectile */
+    public static final String PLAYER_PROJECTILE_SPRITE_PATH 
+                               = "/player/playerShot.png";
     
     /** La couleur du texte affiché dans le jeu. */
     public static final Color COLOR_TEXT = Color.WHITE;
@@ -57,6 +60,9 @@ public class Resources {
     /** Le sprite de l'invader de type 1 */
     public static BufferedImage littleInvaderSprite;
     
+    /** Le sprite du projectile */
+    public static BufferedImage playerProjectileSprite; 
+    
     /** 
      * Charge les ressources du jeu au chemin spécifiés 
      * dans les champs de classes (chaines de caractères) 
@@ -78,6 +84,9 @@ public class Resources {
             
             // Le little invader
             littleInvaderSprite = loadImage(LITTLE_INVADER_SPRITE_PATH);
+            
+            // Le projectile du joueur
+            playerProjectileSprite = loadImage(PLAYER_PROJECTILE_SPRITE_PATH);
 
         } catch (IOException e) {
             System.err.println("Impossible de charger la ressource : " 

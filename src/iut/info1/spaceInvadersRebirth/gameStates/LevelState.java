@@ -3,6 +3,7 @@
  */
 package iut.info1.spaceInvadersRebirth.gameStates;
 
+import iut.info1.spaceInvadersRebirth.gameObjects.LittleInvader;
 import iut.info1.spaceInvadersRebirth.gameObjects.Player;
 import iut.info1.spaceInvadersRebirth.gui.GamePanel;
 import iut.info1.spaceInvadersRebirth.res.Resources;
@@ -31,6 +32,9 @@ public class LevelState extends GameState {
     /** Le joueur */
     private Player player;
     
+    /** Le little invader */
+    private LittleInvader littleInvader;
+    
     /**
      * @param gameStateManager
      * @throws NullPointerException
@@ -42,6 +46,7 @@ public class LevelState extends GameState {
         playerPoints = 0;
         level = 1;
         player = new Player(this);
+        littleInvader = new LittleInvader(this);
         init();
     }
 
@@ -52,15 +57,26 @@ public class LevelState extends GameState {
     @Override
     public void init() {
         initPlayer();
+        initLittleInvader();
     }
     
+    /**
+     * Initialise la position du joueur au début de chaque niveau.
+     */
+    private void initLittleInvader() {
+        //Permet de positionner le little invader sur le panneau de jeu
+        littleInvader.translate( 5,
+                      10 + littleInvader.getHeight());
+        
+    }
+
     /**
      * Initialise la position du joueur au début de chaque niveau.
      */
     public void initPlayer() {
         // Permet de positionner le joueur sur la panneau de jeu.
         player.translate(GamePanel.WIDTH / 2 - player.getWidth() / 2,
-                         GamePanel.HEIGHT - (int)(player.getHeight() * 1.1));
+                         GamePanel.HEIGHT - (int)(player.getHeight() * 1.5));
     }
 
     /* 
@@ -70,6 +86,7 @@ public class LevelState extends GameState {
     @Override
     public void update() {
       player.move();
+      littleInvader.move();
     }
 
     /* 
@@ -82,7 +99,10 @@ public class LevelState extends GameState {
         // Initialise le joueur.
         graphics.drawImage(player.getFrame(), player.getPosX(),
                            player.getPosY(), null);
-
+        
+        // Initialise le little invader
+        graphics.drawImage(littleInvader.getFrame(), littleInvader.getPosX(),
+                littleInvader.getPosY(), null);
     }
 
     /** 

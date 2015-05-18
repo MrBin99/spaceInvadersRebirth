@@ -29,15 +29,21 @@ public class LittleInvader extends Enemy {
     /**
      * Permet de déplacer le little invader.
      */
-    public void move() { 
-       // Déplacement vers la droite. 
-       if( getPosX() <= GamePanel.WIDTH - getWidth() ) {
-               movingRight = true;
-               translate(speed, 0);
-       } else {
-           movingRight = false;
-           
-       }
+    public void move() {
+        // Déplacement vers la droite.
+        if (getPosX() <= GamePanel.WIDTH - getWidth() && movingLeft == false) {
+            movingRight = true;
+            movingLeft = false;
+            translate(speed, 0);
+        } else if (getPosX() >= 0 && movingRight == false) {
+            movingRight = false;
+            movingLeft = true;
+            translate(-speed, 0);
+
+        } else {
+            movingRight = movingLeft = false;
+            translate(0, 5);
+        }
     }
     
     /* 

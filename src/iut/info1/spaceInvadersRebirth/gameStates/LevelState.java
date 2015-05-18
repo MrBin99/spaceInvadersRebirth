@@ -4,6 +4,7 @@
 package iut.info1.spaceInvadersRebirth.gameStates;
 
 import iut.info1.spaceInvadersRebirth.gameObjects.Player;
+import iut.info1.spaceInvadersRebirth.gameObjects.Shelter;
 import iut.info1.spaceInvadersRebirth.gameObjects.Shot;
 import iut.info1.spaceInvadersRebirth.gameObjects.enemies.LittleInvader;
 import iut.info1.spaceInvadersRebirth.gui.GamePanel;
@@ -32,6 +33,9 @@ public class LevelState extends GameState {
 
     /** Le joueur */
     private Player player;
+    
+    /** Les barricades pour protéger le joueur. */
+    private Shelter[] shelters;
 
     /** Le little invader */
     private LittleInvader littleInvader;
@@ -42,12 +46,13 @@ public class LevelState extends GameState {
      * @throws NullPointerException
      */
     public LevelState(GameStateManager gameStateManager)
-            throws NullPointerException {
+    throws NullPointerException {
         super(gameStateManager);
         playerLifes = 3;
         playerPoints = 0;
         level = 1;
         player = new Player(this);
+        shelters = new Shelter[4];
         littleInvader = new LittleInvader(this);
         init();
     }
@@ -60,6 +65,13 @@ public class LevelState extends GameState {
     public void init() {
         initPlayer();
         initLittleInvader();
+        
+        // Initialise les barricades
+        for (int i = 0 ; i < shelters.length ; i++) {
+            shelters[i] = new Shelter(this);
+            shelters[i].translate(GamePanel.WIDTH / 13 + i * 250, 
+                                  GamePanel.HEIGHT - 220);
+        }
     }
 
     /**
@@ -113,6 +125,15 @@ public class LevelState extends GameState {
         // Initialise le little invader
         graphics.drawImage(littleInvader.getFrame(), littleInvader.getPosX(),
                 littleInvader.getPosY(), null);
+        
+        // Dessine les barricades
+        for (int i = 0 ; i < shelters.length ; i++) {
+            if (shelters[i] != null) {
+                graphics.drawImage(shelters[i].getFrame(), shelters[i].getPosX(), shelters[i].getPosY(), null);
+            }
+        }
+        
+        // Dessine les projectiles du joueur
         for (Shot shot : player.getShots()) {
             if (shot != null && shot.getPosY() > 50) {
 

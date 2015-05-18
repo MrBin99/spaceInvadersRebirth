@@ -32,6 +32,9 @@ public class Resources {
     /** Le chemin dans les ressources vers le sprite du joueur. */
     public static final String PLAYER_SPRITE_PATH = "/player/player.png";
     
+    /** Le chemin dans les ressources vers le sprite des barricades. */
+    public static final String SHELTER_SPRITE_PATH = "/shelter/shelter.png";
+    
     /** Le chemin dans les ressources vers le sprite de l'invader. */
     public static final String LITTLE_INVADER_SPRITE_PATH 
                                 = "/ennemies/littleInvader.png";
@@ -57,6 +60,9 @@ public class Resources {
     
     /** Le sprite du joueur. */
     public static BufferedImage playerSprite;
+    
+    /** Le sprite des barricades. */
+    public static BufferedImage shelterSprite;
 
     /** Le sprite de l'invader de type 1 */
     public static BufferedImage littleInvaderSprite;
@@ -82,6 +88,9 @@ public class Resources {
             
             // Le joueur
             playerSprite = loadImage(PLAYER_SPRITE_PATH);
+            
+            // Les barricades
+            shelterSprite = loadImage(SHELTER_SPRITE_PATH);
             
             // Le little invader
             littleInvaderSprite = loadImage(LITTLE_INVADER_SPRITE_PATH);

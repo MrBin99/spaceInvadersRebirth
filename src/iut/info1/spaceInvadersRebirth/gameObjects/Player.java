@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  * @author
  * @version dev
  */
-public class Player extends GameObject {
+public class Player extends GameObject implements IMoveable, ICanShoot {
 
     /** Représente un déplacement vers la droite. */
     private boolean movingRight;
@@ -42,9 +42,11 @@ public class Player extends GameObject {
         currentProjectile = 0;
     }
 
-    /**
-     * Permet de déplacer le joueur.
+    /*
+     * (non-Javadoc)
+     * @see iut.info1.spaceInvadersRebirth.gameObjects.IMoveable#move()
      */
+    @Override
     public void move() {
         // Déplacement vers la gauche.
         if (movingLeft) {
@@ -64,9 +66,11 @@ public class Player extends GameObject {
         }
     }
 
-    /**
-     * Permet au joueur de tiré
+    /*
+     * (non-Javadoc)
+     * @see iut.info1.spaceInvadersRebirth.gameObjects.ICanShoot#shoot()
      */
+    @Override
     public void shoot() {
         if (currentProjectile == 9) {
             currentProjectile = 0;

@@ -3,9 +3,9 @@
  */
 package iut.info1.spaceInvadersRebirth.gameStates;
 
-import iut.info1.spaceInvadersRebirth.gameObjects.LittleInvader;
 import iut.info1.spaceInvadersRebirth.gameObjects.Player;
 import iut.info1.spaceInvadersRebirth.gameObjects.Shot;
+import iut.info1.spaceInvadersRebirth.gameObjects.enemies.LittleInvader;
 import iut.info1.spaceInvadersRebirth.gui.GamePanel;
 import iut.info1.spaceInvadersRebirth.res.Resources;
 
@@ -161,6 +161,8 @@ public class LevelState extends GameState {
             player.setMovingLeft(true);
         } else if (keyCode == KeyEvent.VK_RIGHT) {
             player.setMovingRight(true);
+        } else if (keyCode == KeyEvent.VK_ESCAPE) {
+            gameStateManager.pauseGame();
         }
     }
 

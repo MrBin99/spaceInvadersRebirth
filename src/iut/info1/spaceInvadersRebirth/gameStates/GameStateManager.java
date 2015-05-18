@@ -83,9 +83,6 @@ public class GameStateManager {
             case ID_LEVEL_STATE:
                 this.gameStates[this.currentState] = new LevelState(this);
                 break;
-            case ID_GAME_PAUSED_STATE:
-                // Chargment du menu pause
-                break;
             case ID_GAME_OVER_STATE:
                 // Chargment du menu game over
                 break;
@@ -119,6 +116,23 @@ public class GameStateManager {
         loadState();
     }
     
+    /** Met le jeu en pause. */
+    public void pauseGame() {
+        this.currentState = ID_GAME_PAUSED_STATE;
+        this.gameStates[currentState] = new GamePausedState(this);
+    }
+    
+    /** Reprend le jeu qui était en pause. */
+    public void resumeGame() {
+        this.currentState = ID_LEVEL_STATE;
+    }
+    
+    /** Recommence le jeu. */
+    public void retryGame() {
+        this.currentState = ID_LEVEL_STATE;
+        loadState();
+    }
+    
     /** Met à jour le GameState courant. */
     public void update() {
         if (gameStates[currentState] != null) {
@@ -131,7 +145,9 @@ public class GameStateManager {
      * @param graphics le contexte graphique où dessiner les mises à jour. 
      */
     public void draw(Graphics2D graphics) {
-        gameStates[currentState].draw(graphics);
+        //if (gameStates[currentState] != null) {
+            gameStates[currentState].draw(graphics);
+        //}
     }
     
     /**
@@ -140,7 +156,9 @@ public class GameStateManager {
      * @param keyCode le code de la touche appuyée.
      */
     public void keyPressed(int keyCode) {
-        gameStates[currentState].keyPressed(keyCode);
+        if (gameStates[currentState] != null) {
+            gameStates[currentState].keyPressed(keyCode);
+        }
     }
     
     /**
@@ -149,7 +167,9 @@ public class GameStateManager {
      * @param keyCode le code de la touche relachée.
      */
     public void keyReleased(int keyCode) {
-        gameStates[currentState].keyReleased(keyCode);
+        if (gameStates[currentState] != null) {
+            gameStates[currentState].keyReleased(keyCode);
+        }
     }
     
     /**

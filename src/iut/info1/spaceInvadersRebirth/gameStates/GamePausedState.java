@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 /**
- * 
+ * Le menu pause du jeu.
  * @author
  * @version dev
  */
@@ -82,6 +82,9 @@ public class GamePausedState extends GameState {
         // Attribution de la police est la couleur du texte
         graphics.setFont(Resources.font.deriveFont(40f));
         graphics.setColor(Resources.COLOR_TEXT);
+        
+        // Dessine le fond
+        graphics.drawImage(Resources.background, 0, 0, null);
         
         graphics.drawString("Game Paused", 
                             (int) (GamePanel.WIDTH / 2.8), 

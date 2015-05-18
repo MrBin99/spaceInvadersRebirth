@@ -35,8 +35,9 @@ public class Resources {
     /** Le chemin dans les ressources vers le sprite de l'invader. */
     public static final String LITTLE_INVADER_SPRITE_PATH 
                                 = "/ennemies/littleInvader.png";
-    /** Le chemin dans les ressources vers le sprite du projectile */
-    public static final String PLAYER_PROJECTILE_SPRITE_PATH 
+    
+    /** Le chemin dans les ressources vers le sprite du projectile du joueur.*/
+    public static final String PLAYER_SHOT_SPRITE_PATH 
                                = "/player/playerShot.png";
     
     /** La couleur du texte affiché dans le jeu. */
@@ -61,7 +62,7 @@ public class Resources {
     public static BufferedImage littleInvaderSprite;
     
     /** Le sprite du projectile */
-    public static BufferedImage playerProjectileSprite; 
+    public static BufferedImage playerShotSprite; 
     
     /** 
      * Charge les ressources du jeu au chemin spécifiés 
@@ -86,7 +87,7 @@ public class Resources {
             littleInvaderSprite = loadImage(LITTLE_INVADER_SPRITE_PATH);
             
             // Le projectile du joueur
-            playerProjectileSprite = loadImage(PLAYER_PROJECTILE_SPRITE_PATH);
+            playerShotSprite = loadImage(PLAYER_SHOT_SPRITE_PATH);
 
         } catch (IOException e) {
             System.err.println("Impossible de charger la ressource : " 
@@ -119,7 +120,8 @@ public class Resources {
      * @throws IOException si un problème est survenu lors du chargement 
      *                     de la police ou si elle n'existe pas.
      */
-    public static Font loadFont(String path) throws FontFormatException, IOException {
+    public static Font loadFont(String path) 
+    throws FontFormatException, IOException {
         return Font.createFont(Font.TRUETYPE_FONT, 
                                Resources.class.getResourceAsStream(path));
     }

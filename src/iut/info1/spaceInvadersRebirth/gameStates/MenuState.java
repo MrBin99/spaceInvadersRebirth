@@ -87,6 +87,9 @@ public class MenuState extends GameState {
         graphics.setFont(Resources.font.deriveFont(40f));
         graphics.setColor(Resources.COLOR_TEXT);
         
+        // Dessine le fond
+        graphics.drawImage(Resources.background, 0, 0, null);
+        
         // Affichage du logo
         graphics.drawImage(Resources.logo, 
                            GamePanel.WIDTH / 2 - Resources.logo.getWidth() / 2, 

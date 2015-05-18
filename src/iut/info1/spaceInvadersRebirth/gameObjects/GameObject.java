@@ -35,7 +35,7 @@ public abstract class GameObject {
     protected SpriteSheet sprite;
     
     /**
-     * 
+     * Créé un nouveau GameObject basique.
      * @param levelState Le levelState où on doit dessiner le game object.
      * @param sprite Sprite du game object à afficher.
      * @throws NullPointerException  si levelState == null || sprite == null

@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
  * @author
  * @version dev
  */
-public class Shot extends GameObject {
+public class Shot extends GameObject implements IMoveable {
 
     /** True si un projectile du joueur, false si c'est celui d'un enemies. */
     private boolean isPlayerShot;
@@ -27,15 +27,17 @@ public class Shot extends GameObject {
      */
     public Shot(LevelState levelState, boolean isPlayerShot)
     throws NullPointerException {
-        super(levelState, Resources.playerProjectileSprite);
+        super(levelState, Resources.playerShotSprite);
         speed = 10;
         this.isPlayerShot = isPlayerShot;
 
     }
 
-    /**
-     * Deplacement du projectile celon le tireur
+    /*
+     * (non-Javadoc)
+     * @see iut.info1.spaceInvadersRebirth.gameObjects.IMoveable#move()
      */
+    @Override
     public void move() {
         // si tir du joueur
         if (isPlayerShot) {
@@ -56,5 +58,4 @@ public class Shot extends GameObject {
         // retourne le sprite du projectile
         return sprite.getSprite();
     }
-
 }

@@ -37,8 +37,8 @@ public class LevelState extends GameState {
     private LittleInvader littleInvader;
 
     /**
-     * @param gameStateManager
-     *            manager qui doit gérer cet état.
+     * Créé un nouvel état de jeu.
+     * @param gameStateManager manager qui doit gérer cet état.
      * @throws NullPointerException
      */
     public LevelState(GameStateManager gameStateManager)
@@ -54,7 +54,6 @@ public class LevelState extends GameState {
 
     /*
      * (non-Javadoc)
-     * 
      * @see iut.info1.spaceInvadersRebirth.gameStates.GameState#init()
      */
     @Override
@@ -78,12 +77,11 @@ public class LevelState extends GameState {
     public void initPlayer() {
         // Permet de positionner le joueur sur la panneau de jeu.
         player.translate(GamePanel.WIDTH / 2 - player.getWidth() / 2,
-                GamePanel.HEIGHT - (int) (player.getHeight() * 1.5));
+                GamePanel.HEIGHT - (int) (player.getHeight() * 1.3));
     }
 
     /*
      * (non-Javadoc)
-     * 
      * @see iut.info1.spaceInvadersRebirth.gameStates.GameState#update()
      */
     @Override
@@ -103,10 +101,7 @@ public class LevelState extends GameState {
 
     /*
      * (non-Javadoc)
-     * 
-     * @see
-     * iut.info1.spaceInvadersRebirth.gameStates.GameState#draw(java.awt.Graphics2D
-     * )
+     * @see iut.info1.spaceInvadersRebirth.gameStates.GameState#draw(java.awt.Graphics2D)
      */
     @Override
     public void draw(Graphics2D graphics) {
@@ -130,13 +125,14 @@ public class LevelState extends GameState {
 
     /**
      * Affiche le contexte de jeu (vie, points, etc.).
-     * 
-     * @param graphics
-     *            contexte graphique où la méthode doit dessiner.
+     * @param graphics contexte graphique où la méthode doit dessiner.
      */
     private void drawHUD(Graphics2D graphics) {
         // Mets la couleur en blanc.
         graphics.setColor(Resources.COLOR_TEXT);
+        
+        // Dessine le fond
+        graphics.drawImage(Resources.background, 0, 0, null);
 
         // Elargit la line (4 pixels de large).
         graphics.setStroke(new BasicStroke(4));
@@ -151,7 +147,6 @@ public class LevelState extends GameState {
 
     /*
      * (non-Javadoc)
-     * 
      * @see iut.info1.spaceInvadersRebirth.gameStates.GameState#keyPressed(int)
      */
     @Override
@@ -168,7 +163,6 @@ public class LevelState extends GameState {
 
     /*
      * (non-Javadoc)
-     * 
      * @see iut.info1.spaceInvadersRebirth.gameStates.GameState#keyReleased(int)
      */
     @Override
@@ -177,7 +171,5 @@ public class LevelState extends GameState {
         if (keyCode == KeyEvent.VK_SPACE) {
             player.shoot();
         }
-
     }
-
 }

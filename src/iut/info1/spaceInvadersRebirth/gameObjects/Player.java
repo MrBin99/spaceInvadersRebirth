@@ -10,8 +10,7 @@ import iut.info1.spaceInvadersRebirth.res.Resources;
 import java.awt.image.BufferedImage;
 
 /**
- * Classe permettant de gérer le joueur et ses déplacements
- * 
+ * Classe permettant de gérer le joueur et ses déplacements.
  * @author
  * @version dev
  */
@@ -30,6 +29,7 @@ public class Player extends GameObject implements IMoveable, ICanShoot {
     private int currentProjectile;
 
     /**
+     * Créé un nouveau joueur.
      * @param levelState le levelState où on doit dessiner le game object.
      * @param sprite Sprite du game object à afficher.
      * @throws NullPointerException si levelState == null || sprite == null
@@ -88,7 +88,6 @@ public class Player extends GameObject implements IMoveable, ICanShoot {
 
     /*
      * (non-Javadoc)
-     * 
      * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#getFrame()
      */
     @Override
@@ -98,50 +97,39 @@ public class Player extends GameObject implements IMoveable, ICanShoot {
     }
 
     /**
-     * Getter sur movingRight
-     * 
-     * @return movingRight
+     * @return true si le joueur doit bouger vers la droite.
      */
     public boolean isMovingRight() {
         return movingRight;
     }
 
     /**
-     * Setter sur movingRight
-     * 
-     * @param movingRight
-     *            le movingRight à modifier
+     * Si le joueur doit bouger vers la droite.
+     * @param movingRight true si il doit bouger vers la droite, false sinon.
      */
     public void setMovingRight(boolean movingRight) {
         this.movingRight = movingRight;
     }
 
     /**
-     * Getter sur movingLeft
-     * 
-     * @return movingLeft
+     * @return true si le joueur doit bouger vers la gauche.
      */
     public boolean isMovingLeft() {
         return movingLeft;
     }
 
     /**
-     * Setter sur movingLeft
-     * 
-     * @param movingLeft
-     *            le movingLeft à modifier
+     * Si le joueur doit bouger vers la gauche.
+     * @param movingLeft true si il doit bouger vers la gauche, false sinon.
      */
     public void setMovingLeft(boolean movingLeft) {
         this.movingLeft = movingLeft;
     }
 
     /**
-     * Getter sur projectile
-     * 
-     * @return projectile
+     * @return les projectiles du joueur.
      */
     public Shot[] getShots() {
         return shots;
     }
-
 }

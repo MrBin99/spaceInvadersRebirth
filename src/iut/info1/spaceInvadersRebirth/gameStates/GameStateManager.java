@@ -78,7 +78,7 @@ public class GameStateManager {
         switch (this.currentState) {
             case ID_MENU_STATE:
                 // Lance le menu du jeu
-                this.gameStates[this.currentState] = new MenuState(this);
+                this.gameStates[this.currentState] = new MainMenuState(this);
                 break;
             case ID_LEVEL_STATE:
                 this.gameStates[this.currentState] = new LevelState(this);
@@ -145,9 +145,9 @@ public class GameStateManager {
      * @param graphics le contexte graphique où dessiner les mises à jour. 
      */
     public void draw(Graphics2D graphics) {
-        //if (gameStates[currentState] != null) {
+        if (gameStates[currentState] != null) {
             gameStates[currentState].draw(graphics);
-        //}
+        }
     }
     
     /**

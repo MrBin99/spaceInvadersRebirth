@@ -3,9 +3,8 @@
  */
 package iut.info1.spaceInvadersRebirth.gameObjects.enemies;
 
-import iut.info1.spaceInvadersRebirth.gameObjects.GameObject;
 import iut.info1.spaceInvadersRebirth.gameObjects.ICanShoot;
-import iut.info1.spaceInvadersRebirth.gameObjects.IMoveable;
+import iut.info1.spaceInvadersRebirth.gameObjects.MovableGameObject;
 import iut.info1.spaceInvadersRebirth.gameStates.LevelState;
 
 import java.awt.image.BufferedImage;
@@ -15,14 +14,8 @@ import java.awt.image.BufferedImage;
  * @author
  * @version dev
  */
-public abstract class Enemy extends GameObject implements IMoveable, ICanShoot {
+public abstract class Enemy extends MovableGameObject implements ICanShoot {
     
-    /** Représente un déplacement vers la droite. */
-    protected boolean movingRight;
-    
-    /** Représente un déplacement vers la gauche. */
-    protected boolean movingLeft;
-
     /**
      * Créé un nouvel ennemi basique.
      * @param levelState le levelState ou créer l'ennemi.

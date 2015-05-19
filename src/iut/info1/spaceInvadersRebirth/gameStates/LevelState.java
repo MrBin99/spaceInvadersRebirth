@@ -3,6 +3,8 @@
  */
 package iut.info1.spaceInvadersRebirth.gameStates;
 
+import iut.info1.spaceInvadersRebirth.gameObjects.GameObject;
+import iut.info1.spaceInvadersRebirth.gameObjects.MovableGameObject;
 import iut.info1.spaceInvadersRebirth.gameObjects.Player;
 import iut.info1.spaceInvadersRebirth.gameObjects.Shelter;
 import iut.info1.spaceInvadersRebirth.gameObjects.Shot;
@@ -32,13 +34,13 @@ public class LevelState extends GameState {
     private int level;
 
     /** Le joueur */
-    private Player player;
+    private GameObject player;
     
     /** Les barricades pour protéger le joueur. */
-    private Shelter[] shelters;
+    private GameObject[] shelters;
 
     /** Le little invader */
-    private LittleInvader littleInvader;
+    private GameObject littleInvader;
 
     /**
      * Créé un nouvel état de jeu.
@@ -52,8 +54,8 @@ public class LevelState extends GameState {
         playerPoints = 0;
         level = 1;
         player = new Player(this);
-        shelters = new Shelter[4];
         littleInvader = new LittleInvader(this);
+        shelters = new Shelter[4];
         init();
     }
 
@@ -98,9 +100,9 @@ public class LevelState extends GameState {
      */
     @Override
     public void update() {
-        player.move();
-        littleInvader.move();
-        for (Shot shot : player.getShots()) {
+        ((Player) player).move();
+        ((LittleInvader) littleInvader).move();
+        for (Shot shot : ((Player) player).getShots()) {
             if (shot != null) {
                 if (shot.getPosY() <= 50) {
                     shot = null;
@@ -134,7 +136,7 @@ public class LevelState extends GameState {
         }
         
         // Dessine les projectiles du joueur
-        for (Shot shot : player.getShots()) {
+        for (Shot shot : ((Player) player).getShots()) {
             if (shot != null && shot.getPosY() > 50) {
 
                 // Initialise le projectile du player
@@ -174,9 +176,9 @@ public class LevelState extends GameState {
     public void keyPressed(int keyCode) {
         // Permet de capter une pression sur les flêches directionnelles.
         if (keyCode == KeyEvent.VK_LEFT) {
-            player.setMovingLeft(true);
+            ((MovableGameObject) player).setMovingLeft(true);
         } else if (keyCode == KeyEvent.VK_RIGHT) {
-            player.setMovingRight(true);
+            ((MovableGameObject) player).setMovingRight(true);
         } else if (keyCode == KeyEvent.VK_ESCAPE) {
             gameStateManager.pauseGame();
         }
@@ -190,7 +192,7 @@ public class LevelState extends GameState {
     public void keyReleased(int keyCode) {
         // Permet de capter si on relache le bouton
         if (keyCode == KeyEvent.VK_SPACE) {
-            player.shoot();
+            ((Player) player).shoot();
         }
     }
 }

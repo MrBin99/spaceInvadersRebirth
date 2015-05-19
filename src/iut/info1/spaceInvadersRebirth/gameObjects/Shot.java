@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
  * @author
  * @version dev
  */
-public class Shot extends GameObject implements IMoveable {
+public class Shot extends MovableGameObject {
 
     /** True si un projectile du joueur, false si c'est celui d'un enemies. */
     private boolean isPlayerShot;
@@ -35,7 +35,7 @@ public class Shot extends GameObject implements IMoveable {
 
     /*
      * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.IMoveable#move()
+     * @see iut.info1.spaceInvadersRebirth.gameObjects.MovableGameObject#move()
      */
     @Override
     public void move() {
@@ -50,7 +50,6 @@ public class Shot extends GameObject implements IMoveable {
 
     /*
      * (non-Javadoc)
-     * 
      * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#getFrame()
      */
     @Override

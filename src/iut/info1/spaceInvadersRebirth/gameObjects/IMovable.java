@@ -8,7 +8,7 @@ package iut.info1.spaceInvadersRebirth.gameObjects;
  * @author
  * @version dev
  */
-public interface IMoveable {
+public interface IMovable {
 
     /** Bouge le GameObject. */
     public void move();

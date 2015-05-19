@@ -14,13 +14,7 @@ import java.awt.image.BufferedImage;
  * @author
  * @version dev
  */
-public class Player extends GameObject implements IMoveable, ICanShoot {
-
-    /** Représente un déplacement vers la droite. */
-    private boolean movingRight;
-
-    /** Représente un déplacement vers la gauche. */
-    private boolean movingLeft;
+public class Player extends MovableGameObject implements ICanShoot {
 
     /** Represente le projectile du joueur. */
     private Shot[] shots;
@@ -44,7 +38,7 @@ public class Player extends GameObject implements IMoveable, ICanShoot {
 
     /*
      * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.IMoveable#move()
+     * @see iut.info1.spaceInvadersRebirth.gameObjects.MovableGameObject#move()
      */
     @Override
     public void move() {
@@ -94,36 +88,6 @@ public class Player extends GameObject implements IMoveable, ICanShoot {
     public BufferedImage getFrame() {
         // Permet d'obtenir le sprite du joueur.
         return sprite.getSprite();
-    }
-
-    /**
-     * @return true si le joueur doit bouger vers la droite.
-     */
-    public boolean isMovingRight() {
-        return movingRight;
-    }
-
-    /**
-     * Si le joueur doit bouger vers la droite.
-     * @param movingRight true si il doit bouger vers la droite, false sinon.
-     */
-    public void setMovingRight(boolean movingRight) {
-        this.movingRight = movingRight;
-    }
-
-    /**
-     * @return true si le joueur doit bouger vers la gauche.
-     */
-    public boolean isMovingLeft() {
-        return movingLeft;
-    }
-
-    /**
-     * Si le joueur doit bouger vers la gauche.
-     * @param movingLeft true si il doit bouger vers la gauche, false sinon.
-     */
-    public void setMovingLeft(boolean movingLeft) {
-        this.movingLeft = movingLeft;
     }
 
     /**

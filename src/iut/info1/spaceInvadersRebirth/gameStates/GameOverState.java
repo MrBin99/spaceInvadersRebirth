@@ -1,5 +1,5 @@
 /*
- * MainMenuState.java
+ * GameOverState.java
  */
 package iut.info1.spaceInvadersRebirth.gameStates;
 
@@ -10,26 +10,25 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 /**
- * Représente le menu principal du jeu où l'utilisateur peut choisir de jouer, 
- * de voir l'aide ou de quitter.
+ * Représente le menu Game Over du jeu.
  * @author
  * @version
  */
-public class MainMenuState extends MenuState {
-    
-    /** Les différentes options du menu principal. */
-    public static final String[] MAIN_MENU_OPTIONS = {
-        "Play", "Help", "Quit"
-    };
+public class GameOverState extends MenuState {
 
+    /** Les différentes options du menu pause. */
+    public static final String[] GAME_OVER_MENU_OPTIONS = {
+        "Retry", "Main Menu"
+    };
+    
     /**
-     * Construit un nouveau menu principal.
+     * Construit un nouveau menu Game Over.
      * @param gameStateManager le manager qui doit gérer ce GameState.
      * @throws NullPointerException si gameStateManager == null.
      */
-    public MainMenuState(GameStateManager gameStateManager)
+    public GameOverState(GameStateManager gameStateManager)
     throws NullPointerException {
-        super(gameStateManager, MAIN_MENU_OPTIONS);
+        super(gameStateManager, GAME_OVER_MENU_OPTIONS);
     }
     
     /* 
@@ -38,18 +37,14 @@ public class MainMenuState extends MenuState {
      */
     @Override
     public void doAction() {
-        switch (this.currentOptionSelected) {
+        switch (currentOptionSelected) {
             case 0:
-                // Charge le jeu
-                this.gameStateManager.switchState(
-                                          GameStateManager.ID_LEVEL_STATE);
+                // Recommencer le jeu
+                gameStateManager.retryGame();
                 break;
             case 1:
-                // TODO Help
-                break;
-            case 2:
-                // Quitte le jeu
-                System.exit(0);
+                // Revenir au menu principal
+                gameStateManager.switchState(GameStateManager.ID_MENU_STATE);
                 break;
         }
     }
@@ -60,8 +55,7 @@ public class MainMenuState extends MenuState {
      */
     @Override
     public void init() {
-        Resources.gameMusic.stop();
-        Resources.menuMusic.play();
+        // UNUSED
     }
 
     /* 
@@ -86,23 +80,20 @@ public class MainMenuState extends MenuState {
         // Dessine le fond
         graphics.drawImage(Resources.background, 0, 0, null);
         
-        // Affichage du logo
-        graphics.drawImage(Resources.logo, 
-                           GamePanel.WIDTH / 2 - Resources.logo.getWidth() / 2, 
-                           50, null);
+        graphics.drawString("Game Over", 
+                            (int) (GamePanel.WIDTH / 2.8), 
+                            150);
         
-        // On affiche le menu
+        // Dessin du menu
         for (int i = 0 ; i < menuOptions.length ; i++) {
-            
-            // Si c'est l'option sélectionnée, on l'affiche d'une autre couleur
             if (i == currentOptionSelected) {
                 graphics.setColor(Resources.COLOR_TEXT_SELECTED);
             } else {
                 graphics.setColor(Resources.COLOR_TEXT);
             }
             graphics.drawString(menuOptions[i], 
-                                (int) (GamePanel.WIDTH / 2.2f), 
-                                Resources.logo.getHeight() + 200 + i * 75);
+                                (int) (GamePanel.WIDTH / 2.8),
+                                GamePanel.HEIGHT / 2 + i * 75);
         }
     }
 
@@ -115,7 +106,7 @@ public class MainMenuState extends MenuState {
         // Le joueur à appuyé sur "Entrée"
         if (keyCode == KeyEvent.VK_ENTER) {
             doAction();
-        
+            
         // Le joueur veut monter dans le menu
         } else if (keyCode == KeyEvent.VK_UP) {
             this.currentOptionSelected--;

@@ -1,5 +1,5 @@
 /*
- * LittleInvader.java
+ * BigInvader.java
  */
 package iut.info1.spaceInvadersRebirth.gameObjects.enemies;
 
@@ -9,25 +9,25 @@ import iut.info1.spaceInvadersRebirth.res.Resources;
 import java.awt.image.BufferedImage;
 
 /**
- * Représente un ennemi de type "Little Invader".
+ * Représente un ennemi de type "Big Invader".
  * @author
  * @version
  */
-public class LittleInvader extends Enemy {
+public class BigInvader extends Enemy {
     
     /**
-     * Construit un nouvel ennemi de type "Little Invader".
+     * Construit un nouvel ennemi de type "Big Invader".
      * @param levelState le LevelState où construire l'ennemi
      * @throws NullPointerException si levelState == null.
      */
-    public LittleInvader(LevelState levelState)
+    public BigInvader(LevelState levelState)
     throws NullPointerException {
-        super(levelState, Resources.littleInvaderSprite);
-        
+        super(levelState, Resources.bigInvaderSprite);
+
         // Découpage du sprite
-        sprite.slice(0, 0, 32, 34);
-        sprite.slice(32, 0, 33, 34);
-        sprite.slice(65, 0, 33, 34);
+        sprite.slice(0, 0, 46, 33);
+        sprite.slice(46, 0, 46, 33);
+        sprite.slice(92, 0, 46, 33);
     }
 
     /* 

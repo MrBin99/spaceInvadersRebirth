@@ -10,37 +10,28 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 /**
- * Le menu pause du jeu.
+ * Représente le menu pause du jeu.
  * @author
- * @version dev
+ * @version
  */
 public class GamePausedState extends MenuState {
 
-    /** Les différentes options du menu principal. */
+    /** Les différentes options du menu pause. */
     public static final String[] GAME_PAUSED_MENU_OPTIONS = {
         "Resume", "Retry", "Main Menu"
     };
     
-    /** 
-     * L'option courante selectionnée par l'utilisateur 
-     * (indice dans le tableau des options). 
-     */
-    private int currentOptionSelected;
-    
     /**
-     * Créé un nouveau menu pause du jeu.
-     * @param gameStateManager le GameStateManager qui contrôle ce GameState.
+     * Construit un nouveau menu pause.
+     * @param gameStateManager le manager qui doit gérer ce GameState.
      * @throws NullPointerException si gameStateManager == null.
      */
     public GamePausedState(GameStateManager gameStateManager)
     throws NullPointerException {
         super(gameStateManager, GAME_PAUSED_MENU_OPTIONS);
-
-        // Au chargement l'option sélectionnée est "Resume"
-        currentOptionSelected = 0;
     }
-
-    /*
+    
+    /* 
      * (non-Javadoc)
      * @see iut.info1.spaceInvadersRebirth.gameStates.MenuState#doAction()
      */
@@ -48,17 +39,21 @@ public class GamePausedState extends MenuState {
     public void doAction() {
         switch (currentOptionSelected) {
             case 0:
+                // Reprendre le jeu
                 gameStateManager.resumeGame();
+                Resources.gameMusic.play();
                 break;
             case 1:
+                // Recommencer le jeu
                 gameStateManager.retryGame();
                 break;
             case 2:
+                // Revenir au menu principal
                 gameStateManager.switchState(GameStateManager.ID_MENU_STATE);
                 break;
         }
     }
-    
+
     /* 
      * (non-Javadoc)
      * @see iut.info1.spaceInvadersRebirth.gameStates.GameState#init()
@@ -137,7 +132,8 @@ public class GamePausedState extends MenuState {
             
         // Si on re-appuie sur "Echap" alors reprend le jeu.
         } else if (keyCode == KeyEvent.VK_ESCAPE) {
-            gameStateManager.resumeGame();
+            currentOptionSelected = 0;
+            doAction();
         }
     }
 

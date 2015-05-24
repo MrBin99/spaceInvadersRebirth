@@ -3,31 +3,47 @@
  */
 package iut.info1.spaceInvadersRebirth.gameObjects;
 
+import java.awt.image.BufferedImage;
+
 import iut.info1.spaceInvadersRebirth.gameStates.LevelState;
 import iut.info1.spaceInvadersRebirth.res.Resources;
 
-import java.awt.image.BufferedImage;
-
 /**
- * Représente les barricades permettant d'aider le joueur se défendre.
+ * 
  * @author
- * @version dev
+ * @version
  */
 public class Shelter extends GameObject {
 
     /**
-     * Construit un nouvelle barricade.
-     * @param levelState le levelState ou construire la barricade.
-     * @throws NullPointerException si levelState == null.
+     * @param levelState
+     * @param sprite
+     * @throws NullPointerException
      */
-    public Shelter(LevelState levelState) throws NullPointerException {
+    public Shelter(LevelState levelState)
+    throws NullPointerException {
         super(levelState, Resources.shelterSprite);
 
+        // Les barricades ont 4 états d'endomagement
+        health = 5;
+        
         // Découpage du sprite
         sprite.slice(0, 0, 107, 77);
-        //sprite.slice(179, 0, 178, 129);
-        //sprite.slice(358, 0, 178, 129);
-        //sprite.slice(716, 0, 177, 129);
+        sprite.slice(108, 0, 106, 77);
+        sprite.slice(215, 0, 107, 77);
+        sprite.slice(322, 0, 107, 77);
+        sprite.slice(430, 0, 106, 77);
+        sprite.slice(537, 0, 107, 77);
+    }
+
+    /* 
+     * (non-Javadoc)
+     * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#update()
+     */
+    @Override
+    public void update() {
+        // TODO Auto-generated method stub
+
     }
 
     /* 
@@ -36,6 +52,6 @@ public class Shelter extends GameObject {
      */
     @Override
     public BufferedImage getFrame() {
-        return sprite.getFrameAt(0);
+        return sprite.getFrameAt(-health + 5);
     }
 }

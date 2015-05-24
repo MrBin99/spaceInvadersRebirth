@@ -1,14 +1,15 @@
 /*
  * SpriteSheet.java
  */
-package iut.info1.spaceInvadersRebirth.graphic;
+package iut.info1.spaceInvadersRebirth.graphics;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * Représente une image correspondant à un GameObject 
+ * découpable en plusieurs parties, pour les différents états du GameObject.
  * @author
  * @version
  */

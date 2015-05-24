@@ -52,6 +52,9 @@ public class GameWindow extends JFrame {
         // Charge les ressources du jeu
         Resources.loadResources();
         
+        // L'icônedu jeu
+        setIconImage(Resources.icon);
+        
         // Ajout du panneau de jeu et lancement du jeu
         getContentPane().add(getGamePanel());
         gamePanel.run();

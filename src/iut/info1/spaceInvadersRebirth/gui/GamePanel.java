@@ -4,8 +4,6 @@
 package iut.info1.spaceInvadersRebirth.gui;
 
 import iut.info1.spaceInvadersRebirth.gameStates.GameStateManager;
-import iut.info1.spaceInvadersRebirth.res.Resources;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -36,7 +34,7 @@ public class GamePanel extends JPanel implements KeyListener {
     public static final int WIDTH = 1018;
     
     /** La hauteur du panneau dans la fenêtre. */
-    public static final int HEIGHT = 763;
+    public static final int HEIGHT = 740;
     
     /** 
      * Permet de mettre à jour régulièrement le jeu 

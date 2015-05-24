@@ -4,23 +4,21 @@
 package iut.info1.spaceInvadersRebirth.gameObjects;
 
 import iut.info1.spaceInvadersRebirth.gameStates.LevelState;
-import iut.info1.spaceInvadersRebirth.graphic.SpriteSheet;
+import iut.info1.spaceInvadersRebirth.graphics.SpriteSheet;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
- * Représente une entité du jeu (joueur, ennemi, etc.) 
- * @author 
- * @version dev 
+ * Représente une entité du jeu (joueur, ennemi, un tir, etc.) 
+ * @author
+ * @version
  */
 public abstract class GameObject {
-    
+
     /** Position du game object. */
     protected Point position;
-
-    /** Vitesse de déplacement du game object. */
-    protected int speed;
     
     /** Point de vie du game object. */
     protected int health;
@@ -49,9 +47,22 @@ public abstract class GameObject {
         this.levelState = levelState;
         this.sprite = new SpriteSheet(sprite);
         this.position = new Point(0,0);
+        
+        // A ça création le GameObject n'est pas mort
         this.isDead = false;
+        
+        // Il meurt avec 1 coups
         this.health = 1;
-        this.speed = 0;
+    }
+    
+    /**
+     * Détermine le rectangle autour du GameObject permettant 
+     * de détecter les collisions entre GameObject.
+     * @return le rectangle autour du GameObject 
+     *         permettant de déterminer sa "collision box".
+     */
+    public Rectangle getCollisionBox() {
+        return new Rectangle(getPosX(), getPosY(), getWidth(), getHeight());
     }
     
     /**
@@ -63,6 +74,42 @@ public abstract class GameObject {
         position.translate(dx, dy);
     }
     
+    /** Tue ou détruit le GameObject. */
+    public void kill() {
+        isDead = true;
+    }
+    
+    /** Met à jour le GameObject toute les "frames" de jeu. */
+    public abstract void update();
+    
+    /**
+     * @return true si le GameObject est mort ou détruit, false sinon.
+     */
+    public boolean isDead() {
+        return this.isDead;
+    }
+    
+    /**
+     * @return le nombre de points de vie qu'il reste au joueur.
+     */
+    public int getHealth() {
+        return this.health;
+    }
+    
+    /** 
+     * Inflige un point de dégât au GameObject 
+     * et tue le celui-ci s'il n'a plus de points de vie. *
+     */
+    public void hit() {
+        // 1 point de dégât
+        health--;
+        
+        // Si la vie est égale à 0, tue le GameObject
+        if (health == 0) {
+            kill();
+        }
+    }
+
     /**
      * @return la frame du game object selon son état.
      */

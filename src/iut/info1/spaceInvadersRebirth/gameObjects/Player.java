@@ -3,101 +3,93 @@
  */
 package iut.info1.spaceInvadersRebirth.gameObjects;
 
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import iut.info1.spaceInvadersRebirth.gameObjects.abilities.ICanShoot;
 import iut.info1.spaceInvadersRebirth.gameStates.LevelState;
-import iut.info1.spaceInvadersRebirth.gui.GamePanel;
 import iut.info1.spaceInvadersRebirth.res.Resources;
 
-import java.awt.image.BufferedImage;
-
 /**
- * Classe permettant de gérer le joueur et ses déplacements.
+ * Représente le joueur du jeu pouvant se déplacer et tirer des projectiles.
  * @author
- * @version dev
+ * @version
  */
 public class Player extends MovableGameObject implements ICanShoot {
-
-    /** Represente le projectile du joueur. */
-    private Shot[] shots;
-
-    /** Tir courant du tableau des tirs à instancier pour un nouveau tir. */
-    private int currentProjectile;
+    
+    /** Les projectiles du joueur. */
+    private List<Shot> shots;
 
     /**
-     * Créé un nouveau joueur.
-     * @param levelState le levelState où on doit dessiner le game object.
-     * @param sprite Sprite du game object à afficher.
-     * @throws NullPointerException si levelState == null || sprite == null
+     * Construit un nouveau joueur.
+     * @param levelState le LevelState ou créer le joueur.
+     * @throws NullPointerException si levelState == null.
      */
-    public Player(LevelState levelState) throws NullPointerException {
+    public Player(LevelState levelState)
+    throws NullPointerException {
         super(levelState, Resources.playerSprite);
-        movingRight = movingLeft = false;
+        
+        // Créé la liste des projectiles
+        shots = new ArrayList<>();
+        
+        // Définis la vitesse de déplacement du joueur
         speed = 10;
-        shots = new Shot[10];
-        currentProjectile = 0;
         
         // Découpe le sprite
         sprite.slice(0, 0, 46, 63);
         sprite.slice(46, 0, 46, 63);
     }
 
-    /*
+    /* 
      * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.MovableGameObject#move()
-     */
-    @Override
-    public void move() {
-        // Déplacement vers la gauche.
-        if (movingLeft) {
-            if (getPosX() >= 0) {
-                translate(-speed, 0);
-            }
-            // Evite de se déplacer plusieurs fois.
-            movingLeft = false;
-
-            // Déplacement vers la droite.
-        } else if (movingRight) {
-            if (getPosX() <= GamePanel.WIDTH - getWidth()) {
-                translate(speed, 0);
-            }
-            // Evite de se déplacer plusieurs fois.
-            movingRight = false;
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.ICanShoot#shoot()
+     * @see iut.info1.spaceInvadersRebirth.gameObjects.abilities.ICanShoot#shoot()
      */
     @Override
     public void shoot() {
-        if (currentProjectile == 9) {
-            currentProjectile = 0;
-        }
+        // Le projectile que le joueur tire
+        Shot toShoot = new Shot(levelState, true);
         
-        shots[currentProjectile] = new Shot(levelState, true);
-        int posX = getPosX() + getWidth() / 2
-                - shots[currentProjectile].getWidth() / 2;
-        int posY = getPosY()
-                - shots[currentProjectile].getHeight();
-        shots[currentProjectile].translate(posX, posY);
-        currentProjectile++;
-
+        // Déplace le projectile au niveau du joueur
+        toShoot.translate(getPosX() + getWidth() / 3, 
+                          getPosY() - toShoot.getHeight());
+        
+        // Ajoute le tir à la liste des tirs
+        shots.add(toShoot);
     }
 
-    /*
+    /* 
+     * (non-Javadoc)
+     * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#update()
+     */
+    @Override
+    public void update() {
+        move();
+        for (int i = 0 ; i < shots.size() ; i++) {
+            if (shots.get(i).isDead() || shots.get(i).getPosY() <= 50) {
+                shots.remove(i);
+            } else {
+                shots.get(i).update();
+            }
+            
+            shots.removeAll(Collections.singleton(null));
+        }
+    }
+    
+    /**
+     * @return les projectiles du joueur.
+     */
+    public List<Shot> getShots() {
+        return this.shots;
+    }
+
+    /* 
      * (non-Javadoc)
      * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#getFrame()
      */
     @Override
     public BufferedImage getFrame() {
-        // Permet d'obtenir le sprite du joueur.
         return sprite.getFrameAt(isDead ? 1 : 0);
-    }
-
-    /**
-     * @return les projectiles du joueur.
-     */
-    public Shot[] getShots() {
-        return shots;
     }
 }

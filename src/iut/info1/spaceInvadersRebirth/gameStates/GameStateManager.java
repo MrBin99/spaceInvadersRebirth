@@ -84,7 +84,7 @@ public class GameStateManager {
                 this.gameStates[this.currentState] = new LevelState(this);
                 break;
             case ID_GAME_OVER_STATE:
-                // Chargment du menu game over
+                this.gameStates[this.currentState] = new GameOverState(this);
                 break;
         }
         

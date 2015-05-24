@@ -17,11 +17,17 @@ public abstract class GameState {
     /** Le GameStateManager qui contrôle ce GameState. */
     protected GameStateManager gameStateManager;
     
+    /** 
+     * Permet de compter les "frmes" à l'exécution permettant par exemple 
+     * d'effectuer des actions toutes les n frames.
+     */
+    protected long frameCounter;
+    
     /**
      * Créé un nouveau GameState standard en ajoutant à 
      * celui-ci le GameStateManager qui le contrôle.
-     * @param gameStateManager le GameStateManager qui contrôle ce GameState
-     * @throws NullPointerException si gameStateManager == null
+     * @param gameStateManager le GameStateManager qui contrôle ce GameState.
+     * @throws NullPointerException si gameStateManager == null.
      */
     protected GameState(GameStateManager gameStateManager) 
     throws NullPointerException {
@@ -31,6 +37,9 @@ public abstract class GameState {
             throw new NullPointerException("Le GameStateManager == null");
         }
         this.gameStateManager = gameStateManager;
+        
+        // Frame n°0
+        frameCounter = 0;
     }
     
     /** 
@@ -40,7 +49,10 @@ public abstract class GameState {
     public abstract void init();
     
     /** Met à jour le GameState (utilisé pour re-calculer les positions ...) */
-    public abstract void update();
+    public void update() {
+        // Incrémente le compteur des "frames".
+        frameCounter = frameCounter == Long.MAX_VALUE ? 0 : frameCounter + 1;
+    }
     
     /**
      * Dessine les mises à jour calculées sur le contexte graphique 

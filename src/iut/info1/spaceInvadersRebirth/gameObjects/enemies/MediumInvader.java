@@ -30,25 +30,9 @@ public class MediumInvader extends Enemy {
         sprite.slice(84, 0, 42, 32);
     }
 
-    /* 
-     * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.abilities.ICanShoot#shoot()
-     */
-    @Override
-    public void shoot() {
-        // TODO Auto-generated method stub
-        
-    }
+    
 
-    /* 
-     * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#update()
-     */
-    @Override
-    public void update() {
-        // TODO Auto-generated method stub
-        
-    }
+   
 
     /* 
      * (non-Javadoc)

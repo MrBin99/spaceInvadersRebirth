@@ -71,7 +71,28 @@ public class Shot extends MovableGameObject {
         
         if (isPlayerShot) {
             checkCollisonWithEnemies();
+        } else {
+            checkCollisonWithPlayer();
         }
+        
+    }
+    /**
+     * 
+     */
+    private void checkCollisonWithPlayer() {
+        GameObject player = levelState.getPlayer();
+        if (player != null && !player.isDead() 
+                && player.getCollisionBox().intersects(getCollisionBox())) {
+                
+                // Collision !
+                // Enlève un point de vie au vaisseau mystère
+                player.hit();
+                
+                Resources.explosionSound.play();
+
+                // Détruit le projectile
+                kill();
+            }
     }
     
     /**

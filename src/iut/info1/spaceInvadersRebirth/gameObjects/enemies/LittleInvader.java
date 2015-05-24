@@ -30,25 +30,8 @@ public class LittleInvader extends Enemy {
         sprite.slice(65, 0, 33, 34);
     }
 
-    /* 
-     * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.abilities.ICanShoot#shoot()
-     */
-    @Override
-    public void shoot() {
-        // TODO Auto-generated method stub
-        
-    }
 
-    /* 
-     * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#update()
-     */
-    @Override
-    public void update() {
-        // TODO Auto-generated method stub
-        
-    }
+    
 
     /* 
      * (non-Javadoc)

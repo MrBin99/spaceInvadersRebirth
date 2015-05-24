@@ -8,6 +8,7 @@ import iut.info1.spaceInvadersRebirth.gameObjects.MovableGameObject;
 import iut.info1.spaceInvadersRebirth.gameObjects.Player;
 import iut.info1.spaceInvadersRebirth.gameObjects.Shelter;
 import iut.info1.spaceInvadersRebirth.gameObjects.Shot;
+import iut.info1.spaceInvadersRebirth.gameObjects.enemies.Enemy;
 import iut.info1.spaceInvadersRebirth.gameObjects.enemies.EnemyWave;
 import iut.info1.spaceInvadersRebirth.gameObjects.enemies.MysteryShip;
 import iut.info1.spaceInvadersRebirth.gui.GamePanel;
@@ -127,23 +128,12 @@ public class LevelState extends GameState {
         player.update();
         
         if (enemyWave != null) {
-            updateEnemyWave();
+            enemyWave.update();
         }
     }
     
-    /** Met à jour l'état de la vague d'ennemis. */
-    private void updateEnemyWave() {
-        // Récupère les ennemis des la vague
-        GameObject[][] enemies = enemyWave.getEnemies();
-        
-        for (int i = 0 ; i < enemies.length ; i++) {
-            for (int j = 0 ; j < enemies[i].length ; j++) {
-                if (enemies[i][j] != null && enemies[i][j].isDead()) {
-                    enemies[i][j] = null;
-                }
-            }
-        }
-    }
+   
+   
 
     /* 
      * (non-Javadoc)
@@ -156,7 +146,9 @@ public class LevelState extends GameState {
         drawShelters(graphics);
         drawPlayerShots(graphics);
         drawEnemyWave(graphics);
+        drawEnemisShot(graphics);
         drawMysteryShip(graphics);
+        
     }
 
     /**
@@ -215,6 +207,28 @@ public class LevelState extends GameState {
                                shot.getPosX(), 
                                shot.getPosY(), 
                                null);
+        }
+       
+    }
+    
+    /**
+     * @param graphics 
+     */
+    private void drawEnemisShot(Graphics2D graphics) {
+        
+       GameObject[][] enemies = enemyWave.getEnemies(); 
+        for (int i = 0 ; i < enemies.length ; i++) {
+            
+            for (int j = 0 ; j < enemies[i].length ; j++) {
+                if (enemies[i][j] != null) {
+                    for (Shot shot : ((Enemy) enemies[i][j]).getShots()) {
+                            graphics.drawImage(shot.getFrame(), 
+                                    shot.getPosX(), 
+                                    shot.getPosY(), 
+                                    null);
+                    }
+                }
+            }
         }
     }
 

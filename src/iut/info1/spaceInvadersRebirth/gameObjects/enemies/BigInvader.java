@@ -30,25 +30,7 @@ public class BigInvader extends Enemy {
         sprite.slice(92, 0, 46, 33);
     }
 
-    /* 
-     * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.abilities.ICanShoot#shoot()
-     */
-    @Override
-    public void shoot() {
-        // TODO Auto-generated method stub
-        
-    }
 
-    /* 
-     * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#update()
-     */
-    @Override
-    public void update() {
-        // TODO Auto-generated method stub
-        
-    }
 
     /* 
      * (non-Javadoc)

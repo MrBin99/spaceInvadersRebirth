@@ -3,6 +3,8 @@
  */
 package iut.info1.spaceInvadersRebirth.gui;
 
+import iut.info1.spaceInvadersRebirth.res.Resources;
+
 import javax.swing.JFrame;
 
 /**
@@ -46,6 +48,9 @@ public class GameWindow extends JFrame {
         
         // Apparaît au centre de l'écran
         setLocationRelativeTo(null);
+        
+        // Charge les ressources du jeu
+        Resources.loadResources();
         
         // Ajout du panneau de jeu et lancement du jeu
         getContentPane().add(getGamePanel());

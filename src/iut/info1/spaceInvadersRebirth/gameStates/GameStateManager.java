@@ -87,6 +87,8 @@ public class GameStateManager {
                 // Chargment du menu game over
                 break;
         }
+        
+        this.gameStates[this.currentState].init();
     }
     
     /** Décharge le GameState courant. */

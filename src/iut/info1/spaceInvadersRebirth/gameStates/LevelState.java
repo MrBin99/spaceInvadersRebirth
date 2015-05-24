@@ -56,7 +56,6 @@ public class LevelState extends GameState {
         player = new Player(this);
         littleInvader = new LittleInvader(this);
         shelters = new Shelter[4];
-        init();
     }
 
     /*
@@ -65,6 +64,8 @@ public class LevelState extends GameState {
      */
     @Override
     public void init() {
+        Resources.menuMusic.stop();
+        Resources.gameMusic.play();
         initPlayer();
         initLittleInvader();
         

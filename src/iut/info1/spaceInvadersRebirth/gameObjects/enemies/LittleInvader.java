@@ -25,6 +25,11 @@ public class LittleInvader extends Enemy {
     throws NullPointerException {
         super(levelState, Resources.littleInvaderSprite);
         speed = 1;
+        
+        // Découpage du sprite
+        sprite.slice(0, 0, 32, 34);
+        sprite.slice(32, 0, 33, 34);
+        sprite.slice(65, 0, 33, 34);
     }
 
     /* 
@@ -42,7 +47,7 @@ public class LittleInvader extends Enemy {
      */
     @Override
     public BufferedImage getFrame() {
-        return sprite.getSprite();
+        return sprite.getFrameAt(isDead ? 2 : 0);
     }
 
     /* 

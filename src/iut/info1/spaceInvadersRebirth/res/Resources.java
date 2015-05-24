@@ -3,6 +3,8 @@
  */
 package iut.info1.spaceInvadersRebirth.res;
 
+import iut.info1.spaceInvadersRebirth.audio.AudioClip;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -10,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Classe contenant que des champs et méthodes de classes 
@@ -33,15 +37,27 @@ public class Resources {
     public static final String PLAYER_SPRITE_PATH = "/player/player.png";
     
     /** Le chemin dans les ressources vers le sprite des barricades. */
-    public static final String SHELTER_SPRITE_PATH = "/shelter/shelter.png";
+    public static final String SHELTER_SPRITE_PATH = "/shelter/shelters.png";
     
     /** Le chemin dans les ressources vers le sprite de l'invader. */
     public static final String LITTLE_INVADER_SPRITE_PATH 
-                                = "/ennemies/littleInvader.png";
+                                = "/enemies/littleInvader.png";
     
     /** Le chemin dans les ressources vers le sprite du projectile du joueur.*/
     public static final String PLAYER_SHOT_SPRITE_PATH 
                                = "/player/playerShot.png";
+    
+    /** Le chemin dans les ressources vers le son du projectile du joueur. */
+    public static final String PLAYER_SHOT_SOUND_PATH 
+                                = "/sounds/sfx/playerShot.mp3";
+    
+    /** Le chemin dans les ressources vers la musique du menu du jeu. */
+    public static final String MENU_MUSIC_PATH 
+                                = "/sounds/musics/menuMusic.mp3";
+    
+    /** Le chemin dans les ressources vers la musique du jeu. */
+    public static final String GAME_MUSIC_PATH 
+                                = "/sounds/musics/gameMusic.mp3";
     
     /** La couleur du texte affiché dans le jeu. */
     public static final Color COLOR_TEXT = Color.WHITE;
@@ -70,6 +86,15 @@ public class Resources {
     /** Le sprite du projectile */
     public static BufferedImage playerShotSprite; 
     
+    /** La musique du menu du jeu. */
+    public static AudioClip menuMusic;
+    
+    /** La musique du jeu. */
+    public static AudioClip gameMusic;
+    
+    /** Le son du joueur quand il tire. */
+    public static AudioClip playerShoot;
+    
     /** 
      * Charge les ressources du jeu au chemin spécifiés 
      * dans les champs de classes (chaines de caractères) 
@@ -97,12 +122,30 @@ public class Resources {
             
             // Le projectile du joueur
             playerShotSprite = loadImage(PLAYER_SHOT_SPRITE_PATH);
+            
+            // Le son du joueur qui tire.
+            playerShoot = new AudioClip(AudioClip.loadAudioClip(PLAYER_SHOT_SOUND_PATH));
+            playerShoot.setVolume(-5f);
+            
+            // La musique du menu du jeu.
+            menuMusic = new AudioClip(AudioClip.loadAudioClip(MENU_MUSIC_PATH));
+            menuMusic.mustLoop(true);
+            
+            // La musique du jeu.
+            gameMusic = new AudioClip(AudioClip.loadAudioClip(GAME_MUSIC_PATH));
+            gameMusic.mustLoop(true);
 
         } catch (IOException e) {
             System.err.println("Impossible de charger la ressource : " 
                                + e.getMessage());
         } catch (FontFormatException e) {
             System.err.println("La police est mauvaise.");
+        } catch (NullPointerException e) {
+            System.err.println("Mauvais fichier audio.");
+        } catch (UnsupportedAudioFileException e) {
+            System.err.println("Fichier audio non supporté.");
+        } catch (LineUnavailableException e) {
+            System.err.println("Fichier non lisable.");
         }
     }
     

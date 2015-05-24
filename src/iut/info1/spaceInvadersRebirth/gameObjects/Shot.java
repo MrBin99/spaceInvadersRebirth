@@ -30,7 +30,8 @@ public class Shot extends MovableGameObject {
         super(levelState, Resources.playerShotSprite);
         speed = 10;
         this.isPlayerShot = isPlayerShot;
-
+        Resources.playerShoot.stop();
+        Resources.playerShoot.play();
     }
 
     /*

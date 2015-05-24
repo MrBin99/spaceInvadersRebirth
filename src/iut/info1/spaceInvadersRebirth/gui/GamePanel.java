@@ -68,9 +68,6 @@ public class GamePanel extends JPanel implements KeyListener {
         
         // Création du GameStateManager
         gameStateManager = GameStateManager.getInstance();
-        
-        // Charge les ressources du jeu
-        Resources.loadResources();
     }
     
     /** Créé le Timer permettant de lancer le jeu. */

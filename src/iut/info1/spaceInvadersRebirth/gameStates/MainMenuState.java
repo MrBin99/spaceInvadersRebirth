@@ -69,7 +69,8 @@ public class MainMenuState extends MenuState {
      */
     @Override
     public void init() {
-        // UNUSED
+        Resources.gameMusic.stop();
+        Resources.menuMusic.play();
     }
 
     /* 

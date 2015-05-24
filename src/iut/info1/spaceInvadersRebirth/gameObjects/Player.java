@@ -34,6 +34,10 @@ public class Player extends MovableGameObject implements ICanShoot {
         speed = 10;
         shots = new Shot[10];
         currentProjectile = 0;
+        
+        // Découpe le sprite
+        sprite.slice(0, 0, 46, 63);
+        sprite.slice(46, 0, 46, 63);
     }
 
     /*
@@ -87,7 +91,7 @@ public class Player extends MovableGameObject implements ICanShoot {
     @Override
     public BufferedImage getFrame() {
         // Permet d'obtenir le sprite du joueur.
-        return sprite.getSprite();
+        return sprite.getFrameAt(isDead ? 1 : 0);
     }
 
     /**

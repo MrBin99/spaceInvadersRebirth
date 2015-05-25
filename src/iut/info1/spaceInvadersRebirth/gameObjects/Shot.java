@@ -3,6 +3,9 @@
  */
 package iut.info1.spaceInvadersRebirth.gameObjects;
 
+import iut.info1.spaceInvadersRebirth.gameObjects.enemies.BigInvader;
+import iut.info1.spaceInvadersRebirth.gameObjects.enemies.LittleInvader;
+import iut.info1.spaceInvadersRebirth.gameObjects.enemies.MediumInvader;
 import iut.info1.spaceInvadersRebirth.gameStates.LevelState;
 import iut.info1.spaceInvadersRebirth.res.Resources;
 
@@ -82,6 +85,7 @@ public class Shot extends MovableGameObject {
     private void checkCollisonWithPlayer() {
         GameObject player = levelState.getPlayer();
         if (player != null && !player.isDead() 
+                
                 && player.getCollisionBox().intersects(getCollisionBox())) {
                 
                 // Collision !
@@ -119,6 +123,13 @@ public class Shot extends MovableGameObject {
     
                     // Détruit le projectile
                     kill();
+                    if(enemies[i][j] instanceof BigInvader){
+                        levelState.addPoints(10);
+                    }else if(enemies[i][j] instanceof MediumInvader){
+                        levelState.addPoints(20);
+                    }else if(enemies[i][j] instanceof LittleInvader){
+                        levelState.addPoints(30);
+                    }
                 }
                 
                 if (mysteryShip != null && !mysteryShip.isDead() 
@@ -132,6 +143,9 @@ public class Shot extends MovableGameObject {
     
                     // Détruit le projectile
                     kill();
+                    int[] points = {50, 100, 150, 300};
+                    int random = ((int) (Math.random() * 100))%3;
+                    levelState.addPoints(points[random]);
                 }
             }
         }

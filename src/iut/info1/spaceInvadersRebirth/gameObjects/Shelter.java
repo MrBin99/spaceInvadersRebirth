@@ -3,47 +3,47 @@
  */
 package iut.info1.spaceInvadersRebirth.gameObjects;
 
-import java.awt.image.BufferedImage;
-
-import iut.info1.spaceInvadersRebirth.gameStates.LevelState;
+import iut.info1.spaceInvadersRebirth.graphics.SpriteSheet;
 import iut.info1.spaceInvadersRebirth.res.Resources;
 
+import java.awt.image.BufferedImage;
+
 /**
- * 
+ * Représente une barricade permettant de protéger le joueur des tirs ennemis.
  * @author
- * @version
+ * @version 1.0
  */
 public class Shelter extends GameObject {
 
-    /**
-     * @param levelState
-     * @param sprite
-     * @throws NullPointerException
-     */
-    public Shelter(LevelState levelState)
-    throws NullPointerException {
-        super(levelState, Resources.shelterSprite);
-
+    /** Créé un nouvelle barricade pour protéger le joueur. */
+    public Shelter() {
+        super();
+        
         // Les barricades ont 4 états d'endomagement
-        health = 5;
+        health = 10;
+        
+        spriteSheet = new SpriteSheet(Resources.shelterSprite);
         
         // Découpage du sprite
-        sprite.slice(0, 0, 107, 77);
-        sprite.slice(108, 0, 106, 77);
-        sprite.slice(215, 0, 107, 77);
-        sprite.slice(322, 0, 107, 77);
-        sprite.slice(430, 0, 106, 77);
-        sprite.slice(537, 0, 107, 77);
+        spriteSheet.slice(0, 0, 89, 65);
+        spriteSheet.slice(89, 0, 89, 65);
+        spriteSheet.slice(178, 0, 89, 65);
+        spriteSheet.slice(267, 0, 89, 65);
+        spriteSheet.slice(356, 0, 89, 65);
+        spriteSheet.slice(445, 0, 89, 65);
+        spriteSheet.slice(534, 0, 89, 65);
+        spriteSheet.slice(623, 0, 89, 65);
+        spriteSheet.slice(712, 0, 89, 65);
+        spriteSheet.slice(801, 0, 89, 65);
     }
-
+    
     /* 
      * (non-Javadoc)
      * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#update()
      */
     @Override
     public void update() {
-        // TODO Auto-generated method stub
-
+        // UNUSED
     }
 
     /* 
@@ -52,6 +52,6 @@ public class Shelter extends GameObject {
      */
     @Override
     public BufferedImage getFrame() {
-        return sprite.getFrameAt(-health + 5);
+        return spriteSheet.getFrameAt(-health + 10);
     }
 }

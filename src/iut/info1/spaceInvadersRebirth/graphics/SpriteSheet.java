@@ -11,7 +11,7 @@ import java.util.List;
  * Représente une image correspondant à un GameObject 
  * découpable en plusieurs parties, pour les différents états du GameObject.
  * @author
- * @version
+ * @version 1.0
  */
 public class SpriteSheet {
 
@@ -25,7 +25,7 @@ public class SpriteSheet {
      * Construit un SpriteSheet à l'aide d'une image complète à découper
      * et initialise une nouvelle liste de "frames" vide.
      * @param sprite l'image complète du SpriteSheet. 
-     * @throws NullPointerException si sprite == null.
+     * @throws NullPointerException si <code>sprite == null</code>.
      */
     public SpriteSheet(BufferedImage sprite) throws NullPointerException {
         // Precondition

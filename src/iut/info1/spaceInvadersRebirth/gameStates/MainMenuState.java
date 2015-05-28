@@ -16,7 +16,7 @@ import java.awt.event.KeyEvent;
  * @version
  */
 public class MainMenuState extends MenuState {
-    
+
     /** Les différentes options du menu principal. */
     public static final String[] MAIN_MENU_OPTIONS = {
         "Play", "Help", "Quit"
@@ -45,7 +45,8 @@ public class MainMenuState extends MenuState {
                                           GameStateManager.ID_LEVEL_STATE);
                 break;
             case 1:
-                // TODO Help
+                this.gameStateManager.switchState(
+                                          GameStateManager.ID_GAME_HELP_STATE);
                 break;
             case 2:
                 // Quitte le jeu
@@ -60,7 +61,6 @@ public class MainMenuState extends MenuState {
      */
     @Override
     public void init() {
-        Resources.gameMusic.stop();
         Resources.menuMusic.play();
     }
 
@@ -89,7 +89,7 @@ public class MainMenuState extends MenuState {
         // Affichage du logo
         graphics.drawImage(Resources.logo, 
                            GamePanel.WIDTH / 2 - Resources.logo.getWidth() / 2, 
-                           50, null);
+                           30, null);
         
         // On affiche le menu
         for (int i = 0 ; i < menuOptions.length ; i++) {
@@ -102,7 +102,7 @@ public class MainMenuState extends MenuState {
             }
             graphics.drawString(menuOptions[i], 
                                 (int) (GamePanel.WIDTH / 2.2f), 
-                                Resources.logo.getHeight() + 200 + i * 75);
+                                Resources.logo.getHeight() + 150 + i * 75);
         }
     }
 

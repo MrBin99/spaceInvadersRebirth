@@ -8,12 +8,12 @@ import java.awt.Graphics2D;
 /**
  * Classe permettant de gérer les états du jeu (menus, game over et le jeu).
  * Cette classe permet de déterminer à quel moment 
- * afficher les différents états.
+ * afficher ces différents états.
  * @author
- * @version dev 0.2
+ * @version 1.0
  */
 public class GameStateManager {
-    
+
     /** 
      * Seule instance du GameStateManager 
      * dans l'application (Pattern Singleton). 
@@ -21,16 +21,16 @@ public class GameStateManager {
     private static GameStateManager instance = new GameStateManager();
     
     /** Le nombre de GameStates gérés par le manager. */
-    public static final int NBR_GAME_STATES = 4;
+    public static final int NBR_GAME_STATES = 5;
     
     /** 
-     * Identifiant dans le GameStateManager du menu principal 
+     * Identifiant dans le GameStateManager du menu principal .
      * (indice dans le tableau des GameStates). 
      */
     public static final int ID_MENU_STATE = 0;
     
     /** 
-     * Identifiant dans le GameStateManager du jeu
+     * Identifiant dans le GameStateManager du jeu.
      * (indice dans le tableau des GameStates). 
      */
     public static final int ID_LEVEL_STATE = 1;
@@ -42,10 +42,16 @@ public class GameStateManager {
     public static final int ID_GAME_PAUSED_STATE = 2;
     
     /** 
-     * Identifiant dans le GameStateManager de l'écran "Game Over"
+     * Identifiant dans le GameStateManager de l'écran "Game Over".
      * (indice dans le tableau des GameStates). 
      */
     public static final int ID_GAME_OVER_STATE = 3;
+    
+    /** 
+     * Identifiant dans le GameStateManager de l'écran d'aide.
+     * (indice dans le tableau des GameStates). 
+     */
+    public static final int ID_GAME_HELP_STATE = 4;
     
     /** Les états possibles du jeu gérés par le manager. */
     private GameState[] gameStates;
@@ -85,6 +91,9 @@ public class GameStateManager {
                 break;
             case ID_GAME_OVER_STATE:
                 this.gameStates[this.currentState] = new GameOverState(this);
+                break;
+            case ID_GAME_HELP_STATE :
+                this.gameStates[this.currentState] = new HelpMenuState(this);
                 break;
         }
         

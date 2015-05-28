@@ -1,9 +1,10 @@
 /*
- * MysteriShip.java
+ * MysteryShip.java
  */
 package iut.info1.spaceInvadersRebirth.gameObjects.enemies;
 
-import iut.info1.spaceInvadersRebirth.gameStates.LevelState;
+import iut.info1.spaceInvadersRebirth.graphics.SpriteSheet;
+import iut.info1.spaceInvadersRebirth.gui.GamePanel;
 import iut.info1.spaceInvadersRebirth.res.Resources;
 
 import java.awt.image.BufferedImage;
@@ -15,18 +16,56 @@ import java.awt.image.BufferedImage;
  */
 public class MysteryShip extends Enemy {
 
-    /**
-     * Construit un nouvel ennemi de type "Mystery Ship".
-     * @param levelState le LevelState où construire l'ennemi
-     * @throws NullPointerException si levelState == null.
-     */
-    public MysteryShip(LevelState levelState)
-    throws NullPointerException {
-        super(levelState, Resources.mysteryShipSprite);
+    /** Le nombre de points que rapporte le "Big Invader" en mourrant. */
+    public static final int[] POINTS_ON_DEATH = {
+        50, 100, 150, 300
+    };
+    
+    /** Si le "Mystery Ship" doit se déplacer de la gauche vers la droite. */
+    private boolean toRight;
+    
+    /** Si le "Mystery Ship" doit se déplacer de la droite vers la gauche. */
+    private boolean toLeft;
+
+    /** Construit un nouvel ennemi de type "Mystery Ship". */
+    public MysteryShip() {
+        super();
         
-        // Découpage du sprite
-        sprite.slice(0, 0, 77, 37);
-        sprite.slice(78, 0, 77, 37);
+        // Le nombre de points qu'il rapporte en mourrant
+        pointsOnDeath = POINTS_ON_DEATH[(int) (Math.random() * 4)];
+        
+        // Attribution du sprite
+        spriteSheet = new SpriteSheet(Resources.mysteryShipSprite);
+        
+        speed = 2;
+        
+        /*
+         * Défini aléatoirement si le Mystery Ship va de la droite 
+         * vers la gauche ou l'inverse.
+         */
+        toRight = Math.random() > 0.5f;
+        toLeft = !toRight;
+        
+        if (toRight) {
+            translate(0 - getWidth(), 70);
+            
+        // else if (toLeft) {
+        } else {
+            translate(GamePanel.WIDTH + getWidth(), 70);
+        }
+    }
+    
+    /* 
+     * (non-Javadoc)
+     * @see iut.info1.spaceInvadersRebirth.gameObjects.enemies.Enemy#update()
+     */
+    @Override
+    public void update() {
+        
+        setMovingLeft(toLeft);
+        setMovingRight(toRight);
+        
+        move();
     }
     
     /* 
@@ -35,43 +74,13 @@ public class MysteryShip extends Enemy {
      */
     @Override
     public void move() {
-        // Déplacement vers la gauche.
-        if (movingLeft) {
-            translate(-speed, 0);
-            
-            // Evite de se déplacer plusieurs fois.
-            movingLeft = false;
-
-            // Déplacement vers la droite.
-        } else if (movingRight) {
+        // Si il se déplace vers la droite
+        if (movingRight) {
             translate(speed, 0);
-
-            // Evite de se déplacer plusieurs fois.
-            movingRight = false;
-        }
-    }
-
-    /* 
-     * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.abilities.ICanShoot#shoot()
-     */
-    @Override
-    public void shoot() {
-        // TODO Auto-generated method stub
-
-    }
-
-    /* 
-     * (non-Javadoc)
-     * @see iut.info1.spaceInvadersRebirth.gameObjects.GameObject#update()
-     */
-    @Override
-    public void update() {
-        if (getPosX() <= 0 - getWidth()) {
-            kill();
-        } else {
-            setMovingLeft(true);
-            move();
+            
+        // Si il se déplace vers la gauche
+        } else if (movingLeft) {
+            translate(-speed, 0);
         }
     }
 
@@ -81,6 +90,20 @@ public class MysteryShip extends Enemy {
      */
     @Override
     public BufferedImage getFrame() {
-        return sprite.getFrameAt(isDead ? 1 : 0);
+        return spriteSheet.getSprite();
+    }
+    
+    /**
+     * @return si le "Mystery Ship" va de gauche à droite.
+     */
+    public boolean isGoingToRight() {
+        return this.toRight;
+    }
+
+    /**
+     * @return si le "Mystery Ship" va de droite à gauche.
+     */
+    public boolean isGoingToLeft() {
+        return this.toLeft;
     }
 }

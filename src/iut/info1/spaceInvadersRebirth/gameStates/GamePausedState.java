@@ -41,7 +41,7 @@ public class GamePausedState extends MenuState {
             case 0:
                 // Reprendre le jeu
                 gameStateManager.resumeGame();
-                Resources.gameMusic.play();
+                Resources.menuMusic.play();
                 break;
             case 1:
                 // Recommencer le jeu

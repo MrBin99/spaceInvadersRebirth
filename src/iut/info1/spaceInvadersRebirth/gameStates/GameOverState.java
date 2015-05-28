@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 /**
  * Représente le menu Game Over du jeu.
  * @author
- * @version
+ * @version 1.0
  */
 public class GameOverState extends MenuState {
 

@@ -6,10 +6,10 @@ package iut.info1.spaceInvadersRebirth.gameStates;
 /**
  * Représente un état de menu de jeu qui peut être affiché à l'écran.
  * @author
- * @version dev
+ * @version 1.0
  */
 public abstract class MenuState extends GameState {
-    
+
     /** Les options du menu affiché. */
     protected String[] menuOptions;
     
@@ -23,8 +23,8 @@ public abstract class MenuState extends GameState {
      * Construit un nouvel état de menu.
      * @param gameStateManager le manager qui gère cet état.
      * @param menuOptions les options du menu.
-     * @throws NullPointerException si gameStateManager == null 
-     *                              ou si  menuOptions == null
+     * @throws NullPointerException si <code>gameStateManager == null</code> 
+     *                              ou si  <code>menuOptions == null</code>.
      */
     protected MenuState(GameStateManager gameStateManager, String[] menuOptions)
     throws NullPointerException {

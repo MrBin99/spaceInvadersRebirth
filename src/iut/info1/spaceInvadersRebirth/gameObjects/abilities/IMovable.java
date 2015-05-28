@@ -6,7 +6,7 @@ package iut.info1.spaceInvadersRebirth.gameObjects.abilities;
 /**
  * Définit qu'un GameObject peut se déplacer sur l'écran.
  * @author
- * @version
+ * @version 1.0
  */
 public interface IMovable {
 

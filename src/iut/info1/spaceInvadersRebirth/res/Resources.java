@@ -18,12 +18,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 /**
  * Classe contenant que des champs et méthodes de classes 
  * permettant de charger et d'accéder aux ressources du jeu
- * (images des sprites, fichiers de son).
+ * (images des sprites, sons).
  * @author
- * @version dev 0.3
+ * @version 1.0
  */
 public class Resources {
-
+    
+    /* --------------------- Ressources pour le HUD -------------------------*/
+    
     /** Le chemin dans les ressources vers l'image d'arrière-plan. */
     public static final String BACKGROUND_PATH = "/HUD/back.png";
     
@@ -35,6 +37,9 @@ public class Resources {
     
     /** Le chemin dans les ressources vers la police utilisée dans le jeu. */
     public static final String FONT_PATH = "/HUD/minecraftia.ttf";
+    
+    
+    /* ------------------------- Sprites ------------------------------------*/
     
     /** Le chemin dans les ressources vers le sprite du joueur. */
     public static final String PLAYER_SPRITE_PATH = "/player/player.png";
@@ -66,21 +71,35 @@ public class Resources {
     public static final String ENEMIES_SHOT_SPRITE_PATH 
                                = "/enemies/enemyShot.png";
     
+    
+    /* ---------------------------- Sons ------------------------------------*/
+    
     /** Le chemin dans les ressources vers le son du projectile du joueur. */
     public static final String PLAYER_SHOT_SOUND_PATH 
                                 = "/sounds/sfx/playerShot.mp3";
     
-    /** Le chemin dans les ressources vers le son d'explosion d'un élément. */
-    public static final String EXPLOSION_SOUND_PATH 
-                                = "/sounds/sfx/explosionSound.mp3";
+    /** Le chemin dans les ressources vers le son du projectile des ennemis. */
+    public static final String ENNEMY_SHOT_SOUND_PATH 
+                                = "/sounds/sfx/enemyShot.mp3";
     
-    /** Le chemin dans les ressources vers la musique du menu du jeu. */
-    public static final String MENU_MUSIC_PATH 
-                                = "/sounds/musics/menuMusic.mp3";
+    /** Le chemin dans les ressources vers le son d'explosion d'une barricade. */
+    public static final String SHELTER_DAMAGE_SOUND_PATH 
+                                = "/sounds/sfx/shelterDamage.mp3";
     
+    /** Le chemin dans les ressources vers le son d'explosion d'une barricade. */
+    public static final String PLAYER_DAMAGE_SOUND_PATH 
+                                = "/sounds/sfx/playerExplosion.mp3";
+    
+    /** Le chemin dans les ressources vers le son d'explosion d'un ennemi. */
+    public static final String ENEMY_DAMAGE_SOUND_PATH 
+                                = "/sounds/sfx/enemyExplosion.mp3";
+        
     /** Le chemin dans les ressources vers la musique du jeu. */
-    public static final String GAME_MUSIC_PATH 
-                                = "/sounds/musics/gameMusic.mp3";
+    public static final String MUSIC_PATH 
+                                = "/sounds/musics/music.mp3";
+    
+    
+    /* -------------------- Champs des Ressources -------------------------- */
     
     /** La couleur du texte affiché dans le jeu. */
     public static final Color COLOR_TEXT = Color.WHITE;
@@ -124,17 +143,23 @@ public class Resources {
     /** Le sprite du projectile des enemis. */
     public static BufferedImage enemiesShotSprite;
     
-    /** La musique du menu du jeu. */
-    public static AudioClip menuMusic;
-    
-    /** La musique du jeu. */
-    public static AudioClip gameMusic;
-    
     /** Le son du joueur quand il tire. */
     public static AudioClip playerShoot;
     
-    /** Le son lors d'une destruction d'un GameObject. */
-    public static AudioClip explosionSound;
+    /** Le son des ennemis quand ils tirent. */
+    public static AudioClip enemyShoot;
+    
+    /** Le son lors d'une destruction d'une barricade. */
+    public static AudioClip shelterDamageSound;
+    
+    /** Le son lors d'une destruction du joueur. */
+    public static AudioClip playerDamageSound;
+    
+    /** Le son lors d'une destruction d'un ennemi. */
+    public static AudioClip enemyDamageSound;
+    
+    /** La musique du jeu. */
+    public static AudioClip menuMusic;
     
     /** 
      * Charge les ressources du jeu au chemin spécifiés 
@@ -180,35 +205,43 @@ public class Resources {
             enemiesShotSprite = loadImage(ENEMIES_SHOT_SPRITE_PATH);
             
             // Le son du joueur qui tire.
-            playerShoot = new AudioClip(AudioClip.loadAudioClip(PLAYER_SHOT_SOUND_PATH));
-            playerShoot.setVolume(-5f);
+            playerShoot = new AudioClip(AudioClip.loadAudioClip(
+                                            PLAYER_SHOT_SOUND_PATH));
             
-            // Le son d'une explosion.
-            explosionSound = new AudioClip(AudioClip.loadAudioClip(EXPLOSION_SOUND_PATH));
-            explosionSound.setVolume(-5f);
+            // Le son des ennemis qui tire.
+            enemyShoot = new AudioClip(AudioClip.loadAudioClip(
+                                            ENNEMY_SHOT_SOUND_PATH));
             
-            // La musique du menu du jeu.
-            menuMusic = new AudioClip(AudioClip.loadAudioClip(MENU_MUSIC_PATH));
-            menuMusic.mustLoop(true);
+            // Le son d'une explosion d'une barricade.
+            shelterDamageSound = new AudioClip(AudioClip.loadAudioClip(
+                                               SHELTER_DAMAGE_SOUND_PATH));
+            
+            // Le son d'une explosion du joueur.
+            playerDamageSound = new AudioClip(AudioClip.loadAudioClip(
+                                               PLAYER_DAMAGE_SOUND_PATH));
+            
+            // Le son d'une explosion d'un ennem.
+            enemyDamageSound = new AudioClip(AudioClip.loadAudioClip(
+                                               ENEMY_DAMAGE_SOUND_PATH));
             
             // La musique du jeu.
-            gameMusic = new AudioClip(AudioClip.loadAudioClip(GAME_MUSIC_PATH));
-            gameMusic.mustLoop(true);
+            menuMusic = new AudioClip(AudioClip.loadAudioClip(MUSIC_PATH));
+            menuMusic.setVolume(-5f);
+            menuMusic.mustLoop(true);
 
         } catch (IOException e) {
             System.err.println("Impossible de charger la ressource : " 
                                + e.getMessage());
-        } catch (FontFormatException e) {
-            System.err.println("La police est mauvaise.");
         } catch (NullPointerException e) {
             System.err.println("Mauvais fichier audio.");
         } catch (UnsupportedAudioFileException e) {
             System.err.println("Fichier audio non supporté.");
         } catch (LineUnavailableException e) {
             System.err.println("Fichier non lisable.");
+        } catch (FontFormatException e) {
+            System.err.println("La police est mauvaise.");
         }
     }
-    
 
     /**
      * Charge une image placée dans le dossier "res" au chemin spécifié
@@ -221,7 +254,6 @@ public class Resources {
     public static BufferedImage loadImage(String path) throws IOException {
         return ImageIO.read(Resources.class.getResource(path));
     }
-    
     
     /**
      * Charge une police de caractère placée dans le dossier "res" 

@@ -10,24 +10,18 @@ import java.awt.Graphics2D;
  * c'est-à-dire les diférrents écrans que peut avoir le jeu 
  * (menu, pause, menu princupal, jeu en lui-même).
  * @author
- * @version dev 0.2
+ * @version 1.0
  */
 public abstract class GameState {
-    
+
     /** Le GameStateManager qui contrôle ce GameState. */
     protected GameStateManager gameStateManager;
-    
-    /** 
-     * Permet de compter les "frmes" à l'exécution permettant par exemple 
-     * d'effectuer des actions toutes les n frames.
-     */
-    protected long frameCounter;
     
     /**
      * Créé un nouveau GameState standard en ajoutant à 
      * celui-ci le GameStateManager qui le contrôle.
      * @param gameStateManager le GameStateManager qui contrôle ce GameState.
-     * @throws NullPointerException si gameStateManager == null.
+     * @throws NullPointerException si <code>gameStateManager == null</code>.
      */
     protected GameState(GameStateManager gameStateManager) 
     throws NullPointerException {
@@ -37,9 +31,6 @@ public abstract class GameState {
             throw new NullPointerException("Le GameStateManager == null");
         }
         this.gameStateManager = gameStateManager;
-        
-        // Frame n°0
-        frameCounter = 0;
     }
     
     /** 
@@ -49,10 +40,7 @@ public abstract class GameState {
     public abstract void init();
     
     /** Met à jour le GameState (utilisé pour re-calculer les positions ...) */
-    public void update() {
-        // Incrémente le compteur des "frames".
-        frameCounter = frameCounter == Long.MAX_VALUE ? 0 : frameCounter + 1;
-    }
+    public abstract void update();
     
     /**
      * Dessine les mises à jour calculées sur le contexte graphique 

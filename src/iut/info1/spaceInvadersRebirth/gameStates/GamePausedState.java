@@ -29,6 +29,7 @@ public class GamePausedState extends MenuState {
     public GamePausedState(GameStateManager gameStateManager)
     throws NullPointerException {
         super(gameStateManager, GAME_PAUSED_MENU_OPTIONS);
+        Resources.menuMusic.stop();
     }
     
     /* 
@@ -46,10 +47,12 @@ public class GamePausedState extends MenuState {
             case 1:
                 // Recommencer le jeu
                 gameStateManager.retryGame();
+                Resources.menuMusic.play();
                 break;
             case 2:
                 // Revenir au menu principal
                 gameStateManager.switchState(GameStateManager.ID_MENU_STATE);
+                Resources.menuMusic.play();
                 break;
         }
     }

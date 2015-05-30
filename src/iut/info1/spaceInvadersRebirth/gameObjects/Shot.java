@@ -27,7 +27,7 @@ public class Shot extends MovableGameObject {
     
     /**
      * Construit un nouveau projectile du joueur ou des ennemis.
-     * @param shooter le GaeObject qui a tiré ce projectile.
+     * @param shooter le GameObject qui a tiré ce projectile.
      * @throws NullPointerException si shooter == null.
      */
     public Shot(GameObject shooter) throws NullPointerException {
